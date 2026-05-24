@@ -58,12 +58,24 @@ def contribution(entry: ReceiptInput, *, half_life_days: float = 90.0) -> Receip
     )
 
 
+def lifetime_score(entries: Iterable[ReceiptInput]) -> dict:
+    """Compute non-decayed (all-time) reputation score."""
+    contributions = [contribution(entry) for entry in entries]
+    total = sum(item.verification_depth * item.dispute_multiplier for item in contributions)
+    return {
+        "lifetime_score": total,
+        "receipt_count": len(contributions),
+    }
+
+
 def reputation_score(entries: Iterable[ReceiptInput], *, half_life_days: float = 90.0) -> dict:
     breakdown = [contribution(entry, half_life_days=half_life_days) for entry in entries]
     total = sum(item.contribution for item in breakdown)
+    all_time = sum(item.verification_depth * item.dispute_multiplier for item in breakdown)
     return {
         "half_life_days": half_life_days,
         "receipt_count": len(breakdown),
         "reputation_score": total,
+        "lifetime_score": all_time,
         "breakdown": breakdown,
     }

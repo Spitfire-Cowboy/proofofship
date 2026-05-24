@@ -53,6 +53,7 @@ def cmd_score(args: argparse.Namespace) -> int:
         return 0
 
     print(f"reputation_score={result['reputation_score']:.6f}")
+    print(f"lifetime_score={result['lifetime_score']:.6f}")
     print(f"receipt_count={result['receipt_count']}")
     print(f"half_life_days={result['half_life_days']}")
     for index, item in enumerate(result["breakdown"], start=1):
