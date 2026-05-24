@@ -1,16 +1,93 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth bg-slate-950">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="refresh" content="0; url=https://github.com/Spitfire-Cowboy/proofofship/tree/main/docs" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Redirecting to proofofship docs…</title>
-    <link rel="canonical" href="https://github.com/Spitfire-Cowboy/proofofship/tree/main/docs" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Proof of Ship Docs Hub</title>
+    <meta
+      name="description"
+      content="First-party docs hub for Proof of Ship public surfaces, schemas, examples, badges, and CLI reference."
+    />
+    <meta name="theme-color" content="#020617" />
+    <link rel="canonical" href="https://proofofship.com/docs/" />
+    <meta property="og:title" content="Proof of Ship Docs Hub" />
+    <meta property="og:description" content="First-party docs hub for Proof of Ship public surfaces, schemas, examples, badges, and CLI reference." />
+    <meta property="og:url" content="https://proofofship.com/docs/" />
+    <meta property="og:site_name" content="Proof of Ship" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="../site.webmanifest" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+      @utility surface {
+        @apply rounded-3xl border border-white/10 bg-white/5 shadow-2xl shadow-cyan-950/20 backdrop-blur;
+      }
+      @utility shell {
+        @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+      }
+    </style>
   </head>
-  <body>
-    <p>
-      Redirecting to documentation:
-      <a href="https://github.com/Spitfire-Cowboy/proofofship/tree/main/docs">https://github.com/Spitfire-Cowboy/proofofship/tree/main/docs</a>
-    </p>
+  <body class="min-h-screen bg-slate-950 text-slate-100 antialiased">
+    <div class="absolute inset-x-0 top-0 -z-10 h-[24rem] bg-[radial-gradient(circle_at_top,_rgba(34,211,238,0.18),_transparent_45%),linear-gradient(180deg,_rgba(15,23,42,1),_rgba(2,6,23,1))]"></div>
+    <main class="shell py-10 sm:py-14 lg:py-18">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200/70">Docs hub</p>
+          <h1 class="mt-3 text-4xl font-black tracking-tight text-white sm:text-5xl">Public surfaces, no scavenger hunt.</h1>
+          <p class="mt-4 max-w-3xl text-lg leading-8 text-slate-300">This page links to the actual public assets and repo-shipped references that make up the current Proof of Ship surface.</p>
+        </div>
+        <a class="inline-flex items-center justify-center rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-white/5" href="/">Back to homepage</a>
+      </div>
+
+      <section class="mt-10 grid gap-4 lg:grid-cols-2">
+        <article class="surface p-6">
+          <p class="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-200/70">Live public assets</p>
+          <ul class="mt-4 space-y-3 text-sm leading-7 text-slate-300">
+            <li><a class="text-cyan-300 hover:text-cyan-200" href="/badges/verified.svg">/badges/verified.svg</a> — verified badge</li>
+            <li><a class="text-cyan-300 hover:text-cyan-200" href="/badges/receipts.svg">/badges/receipts.svg</a> — public receipts badge</li>
+            <li><a class="text-cyan-300 hover:text-cyan-200" href="/favicon.svg">/favicon.svg</a> — site icon</li>
+          </ul>
+        </article>
+        <article class="surface p-6">
+          <p class="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-200/70">Repo references</p>
+          <ul class="mt-4 space-y-3 text-sm leading-7 text-slate-300">
+            <li><a class="text-cyan-300 hover:text-cyan-200" href="https://github.com/Spitfire-Cowboy/proofofship/blob/main/docs/cli.md">CLI reference</a></li>
+            <li><a class="text-cyan-300 hover:text-cyan-200" href="https://github.com/Spitfire-Cowboy/proofofship/blob/main/docs/public-surfaces.md">Public surfaces reference</a></li>
+            <li><a class="text-cyan-300 hover:text-cyan-200" href="https://github.com/Spitfire-Cowboy/proofofship/blob/main/docs/specs/proofofship-verifier-architecture-v1.md">Verifier architecture</a></li>
+            <li><a class="text-cyan-300 hover:text-cyan-200" href="https://github.com/Spitfire-Cowboy/proofofship/blob/main/docs/specs/proofofship-repo-badges-v0.md">Badge guidance</a></li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="mt-10 grid gap-4 lg:grid-cols-3">
+        <article class="surface p-6">
+          <p class="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-200/70">Schemas</p>
+          <ul class="mt-4 space-y-3 text-sm leading-7 text-slate-300">
+            <li><a class="text-cyan-300 hover:text-cyan-200" href="https://github.com/Spitfire-Cowboy/proofofship/blob/main/docs/schemas/proofofship/score.v0.1.schema.json">score.v0.1.schema.json</a></li>
+            <li><a class="text-cyan-300 hover:text-cyan-200" href="https://github.com/Spitfire-Cowboy/proofofship/blob/main/docs/schemas/proofofship/receipts.v0.1.schema.json">receipts.v0.1.schema.json</a></li>
+            <li><a class="text-cyan-300 hover:text-cyan-200" href="https://github.com/Spitfire-Cowboy/proofofship/blob/main/docs/schemas/proofofship/github-account.v0.1.schema.json">github-account.v0.1.schema.json</a></li>
+            <li><a class="text-cyan-300 hover:text-cyan-200" href="https://github.com/Spitfire-Cowboy/proofofship/blob/main/docs/schemas/proofofship/linked-repositories.v0.1.schema.json">linked-repositories.v0.1.schema.json</a></li>
+          </ul>
+        </article>
+        <article class="surface p-6">
+          <p class="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-200/70">Examples</p>
+          <ul class="mt-4 space-y-3 text-sm leading-7 text-slate-300">
+            <li><a class="text-cyan-300 hover:text-cyan-200" href="https://github.com/Spitfire-Cowboy/proofofship/blob/main/examples/score.public.sample.json">score.public.sample.json</a></li>
+            <li><a class="text-cyan-300 hover:text-cyan-200" href="https://github.com/Spitfire-Cowboy/proofofship/blob/main/examples/receipts.public.sample.json">receipts.public.sample.json</a></li>
+            <li><a class="text-cyan-300 hover:text-cyan-200" href="https://github.com/Spitfire-Cowboy/proofofship/blob/main/examples/link-repository-request.public.sample.json">link-repository-request.public.sample.json</a></li>
+            <li><a class="text-cyan-300 hover:text-cyan-200" href="https://github.com/Spitfire-Cowboy/proofofship/blob/main/examples/link-repository-result.public.sample.json">link-repository-result.public.sample.json</a></li>
+          </ul>
+        </article>
+        <article class="surface p-6">
+          <p class="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-200/70">CLI quick hits</p>
+          <div class="mt-4 space-y-4 text-sm leading-7 text-slate-300">
+            <pre class="overflow-x-auto rounded-2xl bg-slate-950/80 p-4 ring-1 ring-white/5"><code>proofofship validate --json</code></pre>
+            <pre class="overflow-x-auto rounded-2xl bg-slate-950/80 p-4 ring-1 ring-white/5"><code>proofofship badge verified &lt;handle&gt; --markdown</code></pre>
+            <pre class="overflow-x-auto rounded-2xl bg-slate-950/80 p-4 ring-1 ring-white/5"><code>python scripts/validate_global_ledger.py --file examples/global-ledger.sample.jsonl</code></pre>
+          </div>
+        </article>
+      </section>
+    </main>
   </body>
 </html>

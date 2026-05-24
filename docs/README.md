@@ -62,3 +62,6 @@ It focuses on the public contract: docs, schemas, examples, and the public site 
 - `docs/web/site/badges/verified.svg`
 - `docs/web/site/badges/receipts.svg`
 - `docs/web/site/favicon.svg`
+- `docs/web/site/site.webmanifest`
+- `docs/web/site/robots.txt`
+- `docs/web/site/sitemap.xml`
