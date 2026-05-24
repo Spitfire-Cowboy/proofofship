@@ -1,0 +1,26 @@
+{
+  "handle": "example-builder",
+  "profile_url": "https://proofofship.com/u/example-builder",
+  "receipts_url": "https://proofofship.com/u/example-builder/receipts.json",
+  "receipt_count": 3,
+  "receipts": [
+    {
+      "label": "recent signed receipt",
+      "age_days": 10,
+      "verification_depth": 0.8,
+      "dispute_multiplier": 1.0
+    },
+    {
+      "label": "older public receipt",
+      "age_days": 45,
+      "verification_depth": 0.6,
+      "dispute_multiplier": 1.0
+    },
+    {
+      "label": "stale fully verified receipt",
+      "age_days": 120,
+      "verification_depth": 1.0,
+      "dispute_multiplier": 1.0
+    }
+  ]
+}

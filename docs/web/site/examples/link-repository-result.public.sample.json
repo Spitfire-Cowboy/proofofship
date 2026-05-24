@@ -1,0 +1,18 @@
+{
+  "ok": true,
+  "owner": "Spitfire-Cowboy",
+  "repo": "ship-receipts",
+  "status": "linked",
+  "checks": {
+    "repo_exists": true,
+    "repo_public": true,
+    "permission_sufficient": true
+  },
+  "reason_code": null,
+  "repository": {
+    "full_name": "Spitfire-Cowboy/ship-receipts",
+    "html_url": "https://github.com/Spitfire-Cowboy/ship-receipts",
+    "permission": "push",
+    "visibility": "public"
+  }
+}

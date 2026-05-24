@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://proofofship.com/schemas/proofofship/score.v0.1.schema.json",
+  "title": "Proof of Ship Score",
+  "type": "object",
+  "required": [
+    "handle",
+    "reputation_score",
+    "lifetime_score",
+    "receipt_count",
+    "half_life_days",
+    "formula_version",
+    "score_url",
+    "receipts_url",
+    "profile_url",
+    "breakdown"
+  ],
+  "properties": {
+    "handle": {"type": "string"},
+    "reputation_score": {"type": "number"},
+    "lifetime_score": {"type": "number"},
+    "receipt_count": {"type": "integer", "minimum": 0},
+    "half_life_days": {"type": "number", "exclusiveMinimum": 0},
+    "formula_version": {"type": "string"},
+    "profile_url": {"type": "string", "format": "uri"},
+    "score_url": {"type": "string", "format": "uri"},
+    "receipts_url": {"type": "string", "format": "uri"},
+    "breakdown": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "age_days",
+          "verification_depth",
+          "dispute_multiplier",
+          "time_weight",
+          "contribution"
+        ],
+        "properties": {
+          "age_days": {"type": "number", "minimum": 0},
+          "verification_depth": {"type": "number", "minimum": 0, "maximum": 1},
+          "dispute_multiplier": {"type": "number", "minimum": 0, "maximum": 1},
+          "time_weight": {"type": "number", "minimum": 0},
+          "contribution": {"type": "number", "minimum": 0},
+          "label": {"type": ["string", "null"]}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

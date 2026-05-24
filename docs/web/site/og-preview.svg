@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Proof of Ship social preview">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#020617"/>
+      <stop offset="55%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#083344"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.2" cy="0.2" r="0.8">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <g transform="translate(88 90)">
+    <rect x="0" y="0" width="130" height="130" rx="30" fill="#0f172a" stroke="#67e8f9" stroke-opacity="0.25"/>
+    <path d="M32 82h66v14H32zm10-24h46v14H42zm14-24h18v14H56z" fill="#22d3ee"/>
+    <text x="166" y="42" fill="#a5f3fc" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="28" font-weight="700" letter-spacing="6">PROOFOFSHIP.COM</text>
+    <text x="166" y="126" fill="#ffffff" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="74" font-weight="800">Reputation from evidence,</text>
+    <text x="166" y="204" fill="#67e8f9" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="74" font-weight="800">not claims.</text>
+    <text x="0" y="300" fill="#cbd5e1" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="30">Proof of Ship independently verifies public shipping evidence and publishes</text>
+    <text x="0" y="344" fill="#cbd5e1" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="30">a recomputable trust surface for builders.</text>
+    <g transform="translate(0 412)">
+      <rect width="260" height="72" rx="36" fill="#22d3ee" fill-opacity="0.12" stroke="#22d3ee" stroke-opacity="0.28"/>
+      <text x="32" y="45" fill="#ecfeff" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="28" font-weight="700">Verified by Proof of Ship</text>
+    </g>
+    <g transform="translate(292 412)">
+      <rect width="238" height="72" rx="36" fill="#ffffff" fill-opacity="0.05" stroke="#ffffff" stroke-opacity="0.14"/>
+      <text x="34" y="45" fill="#e2e8f0" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="28" font-weight="700">Public receipts</text>
+    </g>
+  </g>
+</svg>
