@@ -16,12 +16,21 @@ def required_paths() -> list[Path]:
         REPO_ROOT / "docs/concepts.md",
         REPO_ROOT / "docs/global-ledger-contract.md",
         REPO_ROOT / "docs/specs/proofofship-roadmap-v1.md",
+        REPO_ROOT / "docs/specs/proofofship-github-auth-and-repo-linking-v1.md",
         REPO_ROOT / "docs/web/site/index.html",
         REPO_ROOT / "docs/web/site/style.css",
         REPO_ROOT / "docs/web/site/schemas/dr/attestation.v0.1.schema.json",
         REPO_ROOT / "docs/web/site/schemas/dr/transcript.v0.1.schema.json",
         REPO_ROOT / "docs/schemas/proofofship/score.v0.1.schema.json",
         REPO_ROOT / "docs/schemas/proofofship/receipts.v0.1.schema.json",
+        REPO_ROOT / "docs/schemas/proofofship/github-account.v0.1.schema.json",
+        REPO_ROOT / "docs/schemas/proofofship/linked-repositories.v0.1.schema.json",
+        REPO_ROOT / "docs/schemas/proofofship/link-repository-request.v0.1.schema.json",
+        REPO_ROOT / "docs/schemas/proofofship/link-repository-result.v0.1.schema.json",
+        REPO_ROOT / "examples/score.public.sample.json",
+        REPO_ROOT / "examples/receipts.public.sample.json",
+        REPO_ROOT / "examples/account.github.public.sample.json",
+        REPO_ROOT / "examples/linked-repositories.public.sample.json",
     ]
 
 

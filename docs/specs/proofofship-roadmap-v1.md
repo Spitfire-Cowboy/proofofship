@@ -25,9 +25,10 @@ Ship-receipts is the first integration. Not the only one.
 - Implement SQLite storage layer (receipts table, verification_results table, actors table)
 - Implement receipt ingestion endpoint (POST /api/v1/receipts)
 - Implement verification pipeline stages 1-4 (schema, dedup, identity, artifact integrity)
-- Implement GitHub OAuth flow
+- Implement GitHub OAuth flow (public contract documented)
 - Implement basic actor profile endpoint (GET /api/v1/actors/:username)
 - Implement receipt query endpoint (GET /api/v1/receipts/:id)
+- Implement account endpoint and public-repo linking endpoints
 
 **Exit criteria:** Can submit a receipt from ship-receipts, verify it, and retrieve it via API.
 

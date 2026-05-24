@@ -1,0 +1,13 @@
+{
+  "provider": "github",
+  "github_id": 424242,
+  "login": "example-builder",
+  "display_name": "Example Builder",
+  "avatar_url": "https://avatars.githubusercontent.com/u/424242?v=4",
+  "html_url": "https://github.com/example-builder",
+  "profile_url": "https://proofofship.com/u/example-builder",
+  "account_status": "active",
+  "linked_repo_count": 2,
+  "repo_linking_enabled": true,
+  "authenticated": true
+}

@@ -14,7 +14,7 @@ A builder ships work in a public repository. A local tool such as [`ship-receipt
 
 - public README and docs
 - protocol and scoring specs
-- public JSON schemas
+- public JSON schemas, including score, receipts, account, and repo-linking payloads
 - the landing-page source for `proofofship.com`
 - a Python CLI for deterministic score math, URL helpers, and public-surface integrity checks
 - contribution / security / review config for the public surface
@@ -60,7 +60,7 @@ proofofship score examples/score.sample.json --handle example-builder --json
 ## Repo map
 
 - [`docs/`](./docs/) — public docs index
-- [`docs/specs/`](./docs/specs/) — protocol, ledger, scoring, and roadmap specs
+- [`docs/specs/`](./docs/specs/) — protocol, ledger, scoring, auth, and roadmap specs
 - [`docs/web/site/`](./docs/web/site/) — static source for the public landing page
 
 ## Relationship to nearby repos
@@ -83,9 +83,10 @@ What exists publicly here today:
 - public landing-page source
 - public schemas
 - public product and scoring docs
+- public GitHub OAuth and repo-linking contract docs
 
 What is still in progress overall:
-- GitHub OAuth web login flow
+- GitHub OAuth web login implementation
 - account/repo-linking UI
 - public profile pages
 - hosted verification service as a public code surface

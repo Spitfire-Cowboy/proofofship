@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://proofofship.com/schemas/proofofship/link-repository-result.v0.1.schema.json",
+  "title": "Proof of Ship Link Repository Result",
+  "type": "object",
+  "required": [
+    "ok",
+    "owner",
+    "repo",
+    "status",
+    "checks"
+  ],
+  "properties": {
+    "ok": {
+      "type": "boolean"
+    },
+    "owner": {
+      "type": "string",
+      "minLength": 1
+    },
+    "repo": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "linked",
+        "already_linked",
+        "rejected"
+      ]
+    },
+    "checks": {
+      "type": "object",
+      "required": [
+        "repo_exists",
+        "repo_public",
+        "permission_sufficient"
+      ],
+      "properties": {
+        "repo_exists": {
+          "type": "boolean"
+        },
+        "repo_public": {
+          "type": "boolean"
+        },
+        "permission_sufficient": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "reason_code": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        null,
+        "not_authenticated",
+        "repo_not_found",
+        "repo_not_public",
+        "insufficient_repo_permission",
+        "provider_mismatch",
+        "validation_error",
+        "rate_limited"
+      ]
+    },
+    "repository": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "full_name",
+        "html_url",
+        "permission",
+        "visibility"
+      ],
+      "properties": {
+        "full_name": {
+          "type": "string",
+          "minLength": 3
+        },
+        "html_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "permission": {
+          "type": "string",
+          "enum": [
+            "owner",
+            "admin",
+            "push"
+          ]
+        },
+        "visibility": {
+          "const": "public"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

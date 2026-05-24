@@ -360,3 +360,10 @@ Expected: reputation = 2^(-5/90) × 0.8 = 0.962 × 0.8 = 0.7696
 ### Vector 4: Duplicate envelope
 Envelope with content_hash already in ledger.
 Expected: Ingest returns existing entry_id, is_duplicate=True, no new entry.
+
+
+## Identity binding
+
+- Public profile identity is anchored to an authenticated GitHub account in v1.
+- The actor handle in a linked public profile should match the authenticated GitHub session login.
+- Repo linking controls which public repositories may be surfaced on a profile; it does not weaken independent verification of receipts.

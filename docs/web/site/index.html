@@ -1,269 +1,340 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth bg-slate-950">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Proof of Ship — Independent verification for builders</title>
     <meta
       name="description"
-      content="Proofofship independently verifies shipped work against the public record and produces recomputable reputation scores from evidence, not claims."
+      content="Proof of Ship turns public shipping evidence into a recomputable reputation score. Verify commits, repos, and signatures against the public record."
     />
-    <link rel="stylesheet" href="./style.css" />
+    <meta name="theme-color" content="#020617" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230f172a'/%3E%3Cpath d='M18 40h28v6H18zm4-10h20v6H22zm6-10h8v6h-8z' fill='%2322d3ee'/%3E%3C/svg%3E"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+      @theme {
+        --color-brand-50: #ecfeff;
+        --color-brand-400: #22d3ee;
+        --color-brand-500: #06b6d4;
+        --color-brand-600: #0891b2;
+        --color-brand-900: #083344;
+      }
+
+      @utility surface {
+        @apply rounded-3xl border border-white/10 bg-white/5 shadow-2xl shadow-cyan-950/20 backdrop-blur;
+      }
+
+      @utility section-shell {
+        @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+      }
+    </style>
   </head>
-  <body>
-    <header class="hero section" id="top">
-      <div class="container narrow">
-        <p class="eyebrow">proofofship.com</p>
-        <h1>Proof of Ship</h1>
-        <p class="subhead">Independent verification for builders. Reputation from evidence, not claims.</p>
-        <p>
-          Proofofship checks what you shipped against the public record — commits, repos, signatures — and
-          produces a reputation score from that evidence. Every input is public. Every score is recomputable.
-        </p>
-        <p><strong>If it can't be independently verified, it doesn't count.</strong></p>
-        <div class="cta-row">
-          <a class="button primary" href="https://github.com/Spitfire-Cowboy/proofofship">View the repo on GitHub →</a>
-          <a class="button secondary" href="https://github.com/Spitfire-Cowboy/proofofship/tree/main/docs">Read the docs →</a>
+  <body class="overflow-x-hidden bg-slate-950 text-slate-100 antialiased selection:bg-cyan-400/30 selection:text-cyan-50">
+    <div class="absolute inset-x-0 top-0 -z-10 h-[34rem] bg-[radial-gradient(circle_at_top,_rgba(34,211,238,0.18),_transparent_45%),radial-gradient(circle_at_30%_20%,_rgba(14,165,233,0.18),_transparent_30%),linear-gradient(180deg,_rgba(15,23,42,1),_rgba(2,6,23,1))]"></div>
+
+    <header class="relative overflow-hidden">
+      <div class="section-shell pb-16 pt-6 sm:pb-24 lg:pb-28 lg:pt-8">
+        <nav class="flex flex-wrap items-center justify-between gap-4 rounded-full border border-white/10 bg-white/5 px-4 py-3 shadow-lg shadow-slate-950/30 backdrop-blur">
+          <div class="flex min-w-0 items-center gap-3">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-cyan-400/15 ring-1 ring-cyan-300/20">
+              <span class="text-lg font-black tracking-tight text-cyan-300">PS</span>
+            </div>
+            <div class="min-w-0">
+              <p class="truncate text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200/80">proofofship.com</p>
+              <p class="truncate text-sm text-slate-300">Proof of Ship</p>
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 text-sm">
+            <a class="rounded-full border border-white/10 px-4 py-2 text-slate-200 transition hover:border-cyan-300/40 hover:text-white" href="#how-it-works">How it works</a>
+            <a class="rounded-full border border-white/10 px-4 py-2 text-slate-200 transition hover:border-cyan-300/40 hover:text-white" href="#surfaces">Public surfaces</a>
+            <a class="rounded-full bg-cyan-400 px-4 py-2 font-semibold text-slate-950 transition hover:bg-cyan-300" href="https://github.com/Spitfire-Cowboy/proofofship/tree/main/docs">Read the docs</a>
+          </div>
+        </nav>
+
+        <div class="mt-12 grid gap-10 lg:mt-20 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-center">
+          <div class="min-w-0">
+            <div class="inline-flex max-w-full items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-sm text-cyan-100">
+              <span class="inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_0_6px_rgba(74,222,128,0.16)]"></span>
+              <span class="truncate">Independent verification for builders</span>
+            </div>
+            <h1 class="mt-6 max-w-4xl text-pretty text-4xl font-black tracking-tight text-white sm:text-5xl lg:text-7xl">
+              Reputation from evidence,
+              <span class="bg-gradient-to-r from-cyan-300 via-sky-300 to-white bg-clip-text text-transparent">not claims.</span>
+            </h1>
+            <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
+              Proof of Ship turns public shipping evidence into a recomputable reputation score. It verifies commits, repos,
+              and signatures against the public record, rejects self-reported prestige, and publishes a trust surface anyone can inspect.
+            </p>
+            <div class="mt-8 grid gap-3 text-sm text-slate-200 sm:grid-cols-3">
+              <div class="surface min-w-0 p-4">
+                <p class="font-semibold text-white">Verifies public artifacts</p>
+                <p class="mt-2 text-slate-300">Commits, repos, and signatures checked against the public record.</p>
+              </div>
+              <div class="surface min-w-0 p-4">
+                <p class="font-semibold text-white">Deterministic scoring</p>
+                <p class="mt-2 text-slate-300">Time-decayed, depth-weighted, and recomputable from public inputs.</p>
+              </div>
+              <div class="surface min-w-0 p-4">
+                <p class="font-semibold text-white">Strict trust boundary</p>
+                <p class="mt-2 text-slate-300">If it cannot be independently verified, it earns zero reputation.</p>
+              </div>
+            </div>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a class="inline-flex items-center justify-center rounded-full bg-cyan-400 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300" href="https://github.com/Spitfire-Cowboy/proofofship">View the repo on GitHub</a>
+              <a class="inline-flex items-center justify-center rounded-full border border-white/10 px-6 py-3 text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-white/5" href="#live-now">See what is live now</a>
+            </div>
+            <div class="mt-10 flex flex-wrap gap-3 text-xs uppercase tracking-[0.22em] text-slate-400 sm:text-sm">
+              <span class="rounded-full border border-white/10 px-3 py-2">Live API</span>
+              <span class="rounded-full border border-white/10 px-3 py-2">Public profiles</span>
+              <span class="rounded-full border border-white/10 px-3 py-2">264+ tests passing</span>
+            </div>
+          </div>
+
+          <div class="min-w-0">
+            <div class="surface relative overflow-hidden p-4 sm:p-6">
+              <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(34,211,238,0.15),_transparent_35%)]"></div>
+              <div class="relative">
+                <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200/80">Public score surface</p>
+                    <h2 class="mt-2 text-xl font-semibold text-white">score.json</h2>
+                  </div>
+                  <span class="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-emerald-300">recomputable</span>
+                </div>
+                <div class="mt-4 overflow-x-auto rounded-2xl bg-slate-950/80 p-4 ring-1 ring-white/5">
+                  <pre class="min-w-0 text-xs leading-6 text-slate-300 sm:text-sm"><code>{
+  "handle": "example-builder",
+  "reputation_score": 1.5618,
+  "lifetime_score": 2.4,
+  "receipt_count": 3,
+  "formula_version": "0.1",
+  "profile_url": "https://proofofship.com/u/example-builder",
+  "score_url": "https://proofofship.com/u/example-builder/score.json",
+  "receipts_url": "https://proofofship.com/u/example-builder/receipts.json"
+}</code></pre>
+                </div>
+                <div class="mt-6 grid gap-3 sm:grid-cols-3">
+                  <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <p class="text-xs uppercase tracking-[0.22em] text-slate-400">Proof</p>
+                    <p class="mt-2 font-semibold text-white">Ship work</p>
+                    <p class="mt-2 text-sm text-slate-300">A builder ships to a public repository.</p>
+                  </div>
+                  <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <p class="text-xs uppercase tracking-[0.22em] text-slate-400">Verify</p>
+                    <p class="mt-2 font-semibold text-white">Check claims</p>
+                    <p class="mt-2 text-sm text-slate-300">Artifacts are re-verified from scratch against GitHub.</p>
+                  </div>
+                  <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <p class="text-xs uppercase tracking-[0.22em] text-slate-400">Publish</p>
+                    <p class="mt-2 font-semibold text-white">Earn reputation</p>
+                    <p class="mt-2 text-sm text-slate-300">Verified evidence contributes to a public score.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </header>
 
-    <main>
-      <section class="section" id="problem">
-        <div class="container narrow">
-          <h2>The problem with developer profiles</h2>
-          <p>
-            Most developer profiles are self-reported. You list your projects, describe your contributions, and
-            people take your word for it.
-          </p>
-          <p>
-            There is no systematic way to ask: did this person actually build this, and can anyone verify it?
-          </p>
-          <p>
-            As AI-generated code becomes common, this gap gets worse. It is increasingly easy to claim work that
-            was generated, copied, or fabricated. The signal-to-noise ratio for evaluating builders is dropping.
-          </p>
-        </div>
-      </section>
-
-      <section class="section" id="how-it-works">
-        <div class="container">
-          <h2>How proofofship works</h2>
-          <div class="card">
-            <p class="summary"><strong>Proof → Verify → Reputation.</strong></p>
-            <p>
-              A builder produces proof of shipped work. Proofofship independently verifies each claim against the
-              public record. Verified claims accumulate into a reputation score anyone can recompute.
-            </p>
+    <main class="pb-24">
+      <section id="problem" class="section-shell py-10 sm:py-14 lg:py-18">
+        <div class="surface grid gap-8 p-6 sm:p-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:p-10">
+          <div class="min-w-0">
+            <p class="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200/70">The problem</p>
+            <h2 class="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">Developer profiles are still mostly self-reported.</h2>
           </div>
-
-          <ol class="steps">
-            <li>
-              <h3>Ship work</h3>
-              <p>A builder commits code to a public repository.</p>
-            </li>
-            <li>
-              <h3>Generate a receipt</h3>
-              <p>
-                A local tool (ship-receipts) creates a proof envelope: artifact reference, actor identity,
-                cryptographic hash.
-              </p>
-            </li>
-            <li>
-              <h3>Verify independently</h3>
-              <p>
-                Proofofship checks each claim against the GitHub API. Does the commit exist? Is the repo public?
-                Does the actor have push access? Is the commit signed?
-              </p>
-            </li>
-            <li>
-              <h3>Score and publish</h3>
-              <p>
-                Verified receipts earn a reputation score — time-decayed, depth-weighted, and deterministic. Every
-                input is public. Anyone can recompute any score.
-              </p>
-            </li>
-          </ol>
-
-          <p class="footnote">
-            No self-reported claims contribute to the score. If proofofship cannot independently verify the
-            artifact, it earns zero reputation.
-          </p>
+          <div class="min-w-0 space-y-4 text-base leading-8 text-slate-300 sm:text-lg">
+            <p>People list their projects, describe their role, and ask everyone else to trust the story.</p>
+            <p>That was weak even before AI-assisted code. Now it is trivial to inflate, fabricate, or blur what someone actually built.</p>
+            <p class="text-white">Proof of Ship is the counter-move: independent verification, public evidence, and transparent scoring.</p>
+          </div>
         </div>
       </section>
 
-      <section class="section" id="trust-model">
-        <div class="container">
-          <h2>What “verified” actually means</h2>
-          <p>
-            Not all receipts are equal. Proofofship scores each one by how deeply it was verified — and shows that
-            depth explicitly.
-          </p>
+      <section id="how-it-works" class="section-shell py-10 sm:py-14 lg:py-18">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200/70">How it works</p>
+          <h2 class="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">Proof → Verify → Reputation.</h2>
+          <p class="mt-4 text-lg leading-8 text-slate-300">A builder ships work, a local tool produces evidence, Proof of Ship re-verifies everything, and only then does reputation accrue.</p>
+        </div>
+        <div class="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <article class="surface min-w-0 p-6">
+            <p class="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-300">01</p>
+            <h3 class="mt-4 text-xl font-semibold text-white">Ship work</h3>
+            <p class="mt-3 text-slate-300">A builder commits code to a public repository.</p>
+          </article>
+          <article class="surface min-w-0 p-6">
+            <p class="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-300">02</p>
+            <h3 class="mt-4 text-xl font-semibold text-white">Generate a receipt</h3>
+            <p class="mt-3 text-slate-300">A local tool creates a proof envelope with artifact reference, actor identity, and cryptographic hash.</p>
+          </article>
+          <article class="surface min-w-0 p-6">
+            <p class="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-300">03</p>
+            <h3 class="mt-4 text-xl font-semibold text-white">Verify independently</h3>
+            <p class="mt-3 text-slate-300">Proof of Ship checks commits, repo visibility, access level, and signature evidence against GitHub.</p>
+          </article>
+          <article class="surface min-w-0 p-6">
+            <p class="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-300">04</p>
+            <h3 class="mt-4 text-xl font-semibold text-white">Score and publish</h3>
+            <p class="mt-3 text-slate-300">Verified receipts contribute to a deterministic public score anyone can recompute.</p>
+          </article>
+        </div>
+      </section>
 
-          <div class="card">
-            <h3>Verification depth</h3>
-            <ul class="depth-list" aria-label="Verification depth levels">
-              <li><span class="bar" aria-hidden="true">░░░░░</span> <strong>0.0</strong> — Not verified</li>
-              <li><span class="bar" aria-hidden="true">█░░░░</span> <strong>0.2</strong> — Schema valid</li>
-              <li><span class="bar" aria-hidden="true">██░░░</span> <strong>0.4</strong> — Artifact confirmed</li>
-              <li><span class="bar" aria-hidden="true">███░░</span> <strong>0.6</strong> — Cryptographically signed</li>
-              <li><span class="bar" aria-hidden="true">████░</span> <strong>0.8</strong> — Independently attested <em>(planned)</em></li>
-              <li><span class="bar" aria-hidden="true">█████</span> <strong>1.0</strong> — All stages passed <em>(planned)</em></li>
+      <section id="trust-model" class="section-shell py-10 sm:py-14 lg:py-18">
+        <div class="grid gap-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+          <div class="surface min-w-0 p-6 sm:p-8">
+            <p class="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200/70">Trust model</p>
+            <h2 class="mt-4 text-3xl font-bold tracking-tight text-white">What “verified” actually means</h2>
+            <p class="mt-4 text-lg leading-8 text-slate-300">Not all receipts are equal. Verification depth is explicit, visible, and tied to what actually got checked.</p>
+            <div class="mt-8 space-y-3">
+              <div class="flex items-start gap-4 rounded-2xl border border-white/10 bg-white/5 p-4"><span class="mt-1 h-3 w-3 shrink-0 rounded-full bg-slate-500"></span><div class="min-w-0"><p class="font-semibold text-white">0.0 — Not verified</p><p class="text-sm text-slate-300">No independent evidence yet.</p></div></div>
+              <div class="flex items-start gap-4 rounded-2xl border border-white/10 bg-white/5 p-4"><span class="mt-1 h-3 w-3 shrink-0 rounded-full bg-cyan-700"></span><div class="min-w-0"><p class="font-semibold text-white">0.2 → 0.6 — Partial verification</p><p class="text-sm text-slate-300">Schema validity, artifact confirmation, and cryptographic evidence accumulate by stage.</p></div></div>
+            </div>
+          </div>
+          <div class="surface min-w-0 p-6 sm:p-8">
+            <div class="grid gap-6 sm:grid-cols-2">
+              <div class="rounded-2xl border border-white/10 bg-slate-950/70 p-5">
+                <p class="text-sm font-semibold uppercase tracking-[0.24em] text-slate-400">Time decay</p>
+                <p class="mt-3 text-3xl font-black text-white">90 days</p>
+                <p class="mt-3 text-sm leading-7 text-slate-300">A 90-day-old receipt contributes half its original weight. A year-old receipt contributes roughly 6%.</p>
+              </div>
+              <div class="rounded-2xl border border-white/10 bg-slate-950/70 p-5">
+                <p class="text-sm font-semibold uppercase tracking-[0.24em] text-slate-400">Hard rule</p>
+                <p class="mt-3 text-2xl font-bold text-white">No self-reported prestige</p>
+                <p class="mt-3 text-sm leading-7 text-slate-300">If Proof of Ship cannot independently verify the artifact, it earns zero reputation.</p>
+              </div>
+            </div>
+            <div class="mt-6 rounded-2xl border border-amber-400/20 bg-amber-400/10 p-5 text-sm leading-7 text-amber-50">
+              <p class="font-semibold text-white">What we do not verify</p>
+              <p class="mt-2">Proof of Ship can verify that artifacts exist in public repositories and that the actor has write access. It does not prove code quality, impact, or that the actor personally authored every line.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="surfaces" class="section-shell py-10 sm:py-14 lg:py-18">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200/70">Public surfaces</p>
+          <h2 class="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">Machine-readable contracts, not vibes.</h2>
+          <p class="mt-4 text-lg leading-8 text-slate-300">The public repo now exposes concrete payload shapes for scores, receipts, GitHub-authenticated accounts, and linked repositories.</p>
+        </div>
+        <div class="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <article class="surface min-w-0 p-6">
+            <p class="text-xs uppercase tracking-[0.22em] text-cyan-200/70">Payload</p>
+            <h3 class="mt-3 text-xl font-semibold text-white">score.json</h3>
+            <p class="mt-3 text-sm leading-7 text-slate-300">Deterministic score output with breakdown, half-life, and canonical URLs.</p>
+          </article>
+          <article class="surface min-w-0 p-6">
+            <p class="text-xs uppercase tracking-[0.22em] text-cyan-200/70">Payload</p>
+            <h3 class="mt-3 text-xl font-semibold text-white">receipts.json</h3>
+            <p class="mt-3 text-sm leading-7 text-slate-300">Public receipt list surface for profile consumers and auditors.</p>
+          </article>
+          <article class="surface min-w-0 p-6">
+            <p class="text-xs uppercase tracking-[0.22em] text-cyan-200/70">Auth contract</p>
+            <h3 class="mt-3 text-xl font-semibold text-white">GitHub account</h3>
+            <p class="mt-3 text-sm leading-7 text-slate-300">Public schema for authenticated GitHub identity, profile URL, and repo-linking capability.</p>
+          </article>
+          <article class="surface min-w-0 p-6">
+            <p class="text-xs uppercase tracking-[0.22em] text-cyan-200/70">Linking contract</p>
+            <h3 class="mt-3 text-xl font-semibold text-white">Linked repos</h3>
+            <p class="mt-3 text-sm leading-7 text-slate-300">Explicit request/result schemas for claiming public repos on a Proof of Ship profile.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="boundary" class="section-shell py-10 sm:py-14 lg:py-18">
+        <div class="surface grid gap-8 p-6 sm:p-8 lg:grid-cols-2 lg:p-10">
+          <div class="min-w-0">
+            <p class="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200/70">Two tools, one trust boundary</p>
+            <h2 class="mt-4 text-3xl font-bold tracking-tight text-white">ship-receipts records evidence. Proof of Ship re-verifies everything.</h2>
+            <p class="mt-4 text-lg leading-8 text-slate-300">The local tool and the global verifier are intentionally separate. ship-receipts owns repo-local evidence capture and any current game-like UX. Proof of Ship owns independent verification and the public trust surface.</p>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="rounded-3xl border border-white/10 bg-slate-950/70 p-6">
+              <p class="text-xs uppercase tracking-[0.22em] text-slate-400">ship-receipts</p>
+              <ul class="mt-4 space-y-3 text-sm leading-7 text-slate-300">
+                <li>• local evidence recorder</li>
+                <li>• single-repo scope</li>
+                <li>• generates proof envelopes</li>
+                <li>• owns repo-local UX and current game modes</li>
+                <li>• does not verify or score globally</li>
+              </ul>
+            </div>
+            <div class="rounded-3xl border border-cyan-400/20 bg-cyan-400/10 p-6">
+              <p class="text-xs uppercase tracking-[0.22em] text-cyan-100/80">Proof of Ship</p>
+              <ul class="mt-4 space-y-3 text-sm leading-7 text-cyan-50">
+                <li>• independent verifier</li>
+                <li>• cross-repo, cross-actor scope</li>
+                <li>• distrusts embedded scores and claims</li>
+                <li>• publishes verified public trust surfaces</li>
+                <li>• has no game modes here today</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="live-now" class="section-shell py-10 sm:py-14 lg:py-18">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200/70">Live now</p>
+          <h2 class="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">What exists today, with no costume jewelry.</h2>
+          <p class="mt-4 text-lg leading-8 text-slate-300">These are the surfaces and capabilities that already exist right now.</p>
+        </div>
+        <div class="mt-10 grid gap-4 lg:grid-cols-3">
+          <article class="surface min-w-0 p-6">
+            <p class="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-300">Verification engine</p>
+            <ul class="mt-4 space-y-3 text-sm leading-7 text-slate-300">
+              <li>✓ Envelope validator</li>
+              <li>✓ Append-only ledger</li>
+              <li>✓ GitHub-backed artifact verification</li>
+              <li>✓ Time-decayed reputation score</li>
+              <li>✓ Lifetime score output</li>
             </ul>
-          </div>
-
-          <h3>Time decay</h3>
-          <p>
-            Reputation decays. A 90-day-old receipt contributes half its original weight. A year-old receipt
-            contributes about 6%.
-          </p>
-
-          <h3>What we do not verify</h3>
-          <p>
-            Proofofship verifies that artifacts exist in public repositories and that the actor has write access.
-            It does not verify code quality, project impact, or that the actor personally authored every line.
-            Push access proves permission, not authorship.
-          </p>
+          </article>
+          <article class="surface min-w-0 p-6">
+            <p class="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-300">Public surfaces</p>
+            <ul class="mt-4 space-y-3 text-sm leading-7 text-slate-300">
+              <li>✓ Public profiles at <code class="break-all text-cyan-200">/u/&lt;handle&gt;</code></li>
+              <li>✓ <code class="break-all text-cyan-200">score.json</code> payload surface</li>
+              <li>✓ <code class="break-all text-cyan-200">receipts.json</code> payload surface</li>
+              <li>✓ Public schemas and examples in the repo</li>
+              <li>✓ Public contract docs for GitHub auth and repo linking</li>
+            </ul>
+          </article>
+          <article class="surface min-w-0 p-6">
+            <p class="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-300">Service reality</p>
+            <ul class="mt-4 space-y-3 text-sm leading-7 text-slate-300">
+              <li>✓ FastAPI HTTP API</li>
+              <li>✓ Public landing page</li>
+              <li>✓ Sybil-resistance account age gate</li>
+              <li>✓ Sealed-claims support</li>
+              <li>✓ 264+ tests passing</li>
+            </ul>
+          </article>
         </div>
-      </section>
-
-      <section class="section" id="comparison">
-        <div class="container">
-          <h2>Two tools, one trust boundary</h2>
-          <p>
-            ship-receipts is the local tool. It runs inside a single repo, generates a proof envelope for each
-            session of shipped work, and stores it alongside the code. It records evidence — it does not verify or
-            score anything.
-          </p>
-          <p>
-            proofofship is the independent service. It accepts envelopes from any conformant source, re-verifies
-            every claim from scratch against the public record, and publishes a reputation score.
-          </p>
-          <p><strong>The trust boundary is strict:</strong> proofofship never trusts scores or claims inside an envelope. All verification starts from zero.</p>
-
-          <div class="comparison-grid" role="table" aria-label="ship-receipts compared to proofofship">
-            <div class="row header" role="row">
-              <div role="columnheader">Concern</div>
-              <div role="columnheader">ship-receipts</div>
-              <div role="columnheader">proofofship</div>
-            </div>
-            <div class="row" role="row"><div>Role</div><div>Local evidence recorder</div><div>Independent verifier</div></div>
-            <div class="row" role="row"><div>Scope</div><div>Single repo</div><div>Cross-repo, cross-actor</div></div>
-            <div class="row" role="row"><div>Trust</div><div>Self-attested</div><div>Re-verified from scratch</div></div>
-            <div class="row" role="row"><div>Output</div><div>Proof envelope files</div><div>Verified ledger + scores</div></div>
-            <div class="row" role="row"><div>Identity</div><div>None (file-based)</div><div>GitHub OAuth <em>(specified, not deployed)</em></div></div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="status">
-        <div class="container">
-          <h2>Where we are today</h2>
-          <p>
-            Proofofship is in active development. Here is an honest accounting of what exists, what is specified,
-            and what is planned.
-          </p>
-
-          <div class="status-grid">
-            <div class="card">
-              <h3>Live now</h3>
-              <ul>
-                <li>✓ Envelope validator — schema and integrity checks, tested</li>
-                <li>✓ Append-only ledger — idempotent ingestion, tested</li>
-                <li>✓ Reputation aggregator — time decay, depth weighting, dispute multiplier, lifetime score, tested</li>
-                <li>✓ GitHub account age Sybil resistance (90-day minimum), tested</li>
-                <li>✓ Sealed claims — hash-committed prior art proof, tested</li>
-                <li>✓ ORCID identity layer — store and display ORCID iDs, tested</li>
-                <li>✓ HTTP API (FastAPI) — envelopes, score, receipts, profile, claims, scoreboard</li>
-                <li>✓ Public profile pages (/u/&lt;handle&gt;) — live</li>
-                <li>✓ 264+ tests passing</li>
-              </ul>
-            </div>
-            <div class="card">
-              <h3>Specified, not yet deployed</h3>
-              <ul>
-                <li>○ GitHub OAuth — flow specified, not yet integrated</li>
-                <li>○ ORCID ownership verification — Phase 2 planned</li>
-                <li>○ Sealed claims reveal endpoint — Phase 2 planned</li>
-                <li>○ DR attestation storage — planned</li>
-              </ul>
-            </div>
-            <div class="card">
-              <h3>Planned (design not finalized)</h3>
-              <ul>
-                <li>◇ Attestation graph monitoring (planned)</li>
-                <li>◇ Automated anti-gaming discounting (planned)</li>
-                <li>◇ Non-GitHub identity providers (planned)</li>
-                <li>◇ Public leaderboard (planned)</li>
-                <li>◇ Cross-platform federation (planned)</li>
-              </ul>
-            </div>
-          </div>
-
-          <p><a href="https://github.com/Spitfire-Cowboy/proofofship/blob/main/docs/specs/proofofship-roadmap-v1.md">Full roadmap →</a></p>
-        </div>
-      </section>
-
-      <section class="section" id="tiers">
-        <div class="container">
-          <h2>Choose your fleet tier</h2>
-          <p>
-            These tiers are demand signals only. They are not active subscriptions, signups, or billing flows.
-          </p>
-          <div class="tier-grid">
-            <article class="card tier-card">
-              <h3>Solo Voyage <span class="tier-price">Free</span></h3>
-              <p class="tier-tag">1 persona</p>
-              <ul>
-                <li>Basic Odyssey mode</li>
-                <li>Community game modes</li>
-                <li>Personal verification profile</li>
-              </ul>
-              <p><a class="button secondary" href="mailto:john@proofofship.com?subject=Solo%20Voyage%20interest">Notify me about Solo Voyage →</a></p>
-            </article>
-            <article class="card tier-card">
-              <h3>Pro Crew <span class="tier-price">$X/mo</span></h3>
-              <p class="tier-tag">3+ personas</p>
-              <ul>
-                <li>All official game modes</li>
-                <li>Priority fleet sync</li>
-                <li>Persona loadout for different work streams</li>
-              </ul>
-              <p><a class="button primary" href="mailto:john@proofofship.com?subject=Pro%20Crew%20interest">Notify me about Pro Crew →</a></p>
-            </article>
-            <article class="card tier-card">
-              <h3>Org Fleet <span class="tier-price">$Y/mo</span></h3>
-              <p class="tier-tag">N seats + agent slots</p>
-              <ul>
-                <li>Fleet dashboard for team visibility</li>
-                <li>Shared Ithaca goals</li>
-                <li>Human seats with delegated persona lanes</li>
-              </ul>
-              <p><a class="button secondary" href="mailto:john@proofofship.com?subject=Org%20Fleet%20interest">Notify me about Org Fleet →</a></p>
-            </article>
-          </div>
-          <p class="small">
-            Persona model: each human can run multiple personas (like an RPG party) to separate open-source, day-job, and side-project work.
-          </p>
+        <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
+          <a class="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-100" href="https://github.com/Spitfire-Cowboy/proofofship/tree/main/docs">Browse docs and schemas</a>
+          <a class="inline-flex items-center justify-center rounded-full border border-white/10 px-6 py-3 text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-white/5" href="https://github.com/Spitfire-Cowboy/proofofship">Open the repo</a>
         </div>
       </section>
     </main>
 
-    <footer class="section footer" id="footer">
-      <div class="container narrow">
-        <h2>Links</h2>
-        <ul class="link-list">
-          <li><a href="https://github.com/Spitfire-Cowboy/proofofship">GitHub</a></li>
-          <li><a href="https://github.com/Spitfire-Cowboy/ship-receipts">ship-receipts</a></li>
-          <li><a href="https://github.com/Spitfire-Cowboy/proofofship/tree/main/docs">Documentation</a></li>
-          <li><a href="./docs/">/docs redirect</a></li>
-        </ul>
-
-        <p>Watch the repo on GitHub for release notifications.</p>
-        <p><a class="button secondary" href="https://github.com/Spitfire-Cowboy/proofofship">Star on GitHub →</a></p>
-
-        <p class="small">Proprietary. All rights reserved. All score inputs are public.</p>
-        <p class="small">proofofship.com — a project by John Malone</p>
+    <footer class="border-t border-white/10 bg-slate-950/90">
+      <div class="section-shell flex flex-col gap-6 py-8 text-sm text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+        <div class="min-w-0">
+          <p class="font-semibold uppercase tracking-[0.24em] text-slate-300">Proof of Ship</p>
+          <p class="mt-2 max-w-2xl text-slate-400">Independent verification and reputation from public evidence. All score inputs are public. proofofship.com — a project by Spitfire Cowboy.</p>
+        </div>
+        <div class="flex flex-wrap gap-4">
+          <a class="transition hover:text-white" href="https://github.com/Spitfire-Cowboy/proofofship">GitHub</a>
+          <a class="transition hover:text-white" href="https://github.com/Spitfire-Cowboy/ship-receipts">ship-receipts</a>
+          <a class="transition hover:text-white" href="https://github.com/Spitfire-Cowboy/proofofship/tree/main/docs">Documentation</a>
+        </div>
       </div>
     </footer>
   </body>

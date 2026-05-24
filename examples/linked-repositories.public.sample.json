@@ -1,0 +1,28 @@
+{
+  "login": "example-builder",
+  "linked_repo_count": 2,
+  "repositories": [
+    {
+      "owner": "Spitfire-Cowboy",
+      "name": "ship-receipts",
+      "full_name": "Spitfire-Cowboy/ship-receipts",
+      "html_url": "https://github.com/Spitfire-Cowboy/ship-receipts",
+      "description": "Local receipt generator for shipped work.",
+      "visibility": "public",
+      "permission": "push",
+      "linked_at": "2026-05-24T12:00:00Z",
+      "contributes_to_profile": true
+    },
+    {
+      "owner": "Spitfire-Cowboy",
+      "name": "proofofship",
+      "full_name": "Spitfire-Cowboy/proofofship",
+      "html_url": "https://github.com/Spitfire-Cowboy/proofofship",
+      "description": "Independent verification and reputation from public evidence.",
+      "visibility": "public",
+      "permission": "admin",
+      "linked_at": "2026-05-24T12:05:00Z",
+      "contributes_to_profile": true
+    }
+  ]
+}

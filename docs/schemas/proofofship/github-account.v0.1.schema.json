@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://proofofship.com/schemas/proofofship/github-account.v0.1.schema.json",
+  "title": "Proof of Ship GitHub Account",
+  "type": "object",
+  "required": [
+    "provider",
+    "github_id",
+    "login",
+    "html_url",
+    "profile_url",
+    "account_status",
+    "linked_repo_count",
+    "repo_linking_enabled",
+    "authenticated"
+  ],
+  "properties": {
+    "provider": {
+      "const": "github"
+    },
+    "github_id": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "login": {
+      "type": "string",
+      "minLength": 1
+    },
+    "display_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "avatar_url": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uri"
+    },
+    "html_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "profile_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "account_status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "restricted",
+        "pending"
+      ]
+    },
+    "linked_repo_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "repo_linking_enabled": {
+      "type": "boolean"
+    },
+    "authenticated": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false
+}

@@ -27,6 +27,10 @@ def test_schema_files_parse_as_json():
         "docs/web/site/schemas/dr/transcript.v0.1.schema.json",
         "docs/schemas/proofofship/score.v0.1.schema.json",
         "docs/schemas/proofofship/receipts.v0.1.schema.json",
+        "docs/schemas/proofofship/github-account.v0.1.schema.json",
+        "docs/schemas/proofofship/linked-repositories.v0.1.schema.json",
+        "docs/schemas/proofofship/link-repository-request.v0.1.schema.json",
+        "docs/schemas/proofofship/link-repository-result.v0.1.schema.json",
     ]:
         data = load_json(REPO_ROOT / rel)
         assert isinstance(data, dict)
@@ -38,6 +42,8 @@ def test_public_examples_parse_as_json():
     for rel in [
         "examples/score.public.sample.json",
         "examples/receipts.public.sample.json",
+        "examples/account.github.public.sample.json",
+        "examples/linked-repositories.public.sample.json",
     ]:
         data = load_json(REPO_ROOT / rel)
         assert isinstance(data, dict)

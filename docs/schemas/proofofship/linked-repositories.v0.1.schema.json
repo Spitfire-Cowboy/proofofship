@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://proofofship.com/schemas/proofofship/linked-repositories.v0.1.schema.json",
+  "title": "Proof of Ship Linked Repositories",
+  "type": "object",
+  "required": [
+    "login",
+    "linked_repo_count",
+    "repositories"
+  ],
+  "properties": {
+    "login": {
+      "type": "string",
+      "minLength": 1
+    },
+    "linked_repo_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "repositories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "owner",
+          "name",
+          "full_name",
+          "html_url",
+          "visibility",
+          "permission",
+          "linked_at",
+          "contributes_to_profile"
+        ],
+        "properties": {
+          "owner": {
+            "type": "string",
+            "minLength": 1
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "full_name": {
+            "type": "string",
+            "minLength": 3
+          },
+          "html_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "visibility": {
+            "const": "public"
+          },
+          "permission": {
+            "type": "string",
+            "enum": [
+              "owner",
+              "admin",
+              "push"
+            ]
+          },
+          "linked_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "contributes_to_profile": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
