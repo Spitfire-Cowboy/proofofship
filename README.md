@@ -21,12 +21,12 @@ A builder ships work in a public repository. A local tool such as [`ship-receipt
 
 ## What this public repo does **not** contain
 
-- private deployment internals
 - secrets or environment-specific configuration
-- internal staging runbooks
-- private anti-abuse heuristics that would be irresponsible to publish prematurely
+- operator-only runbooks and machine-local assumptions
+- undocumented implementation details that are not part of the public contract
+- unsupported claims beyond what this repo actually documents and exposes
 
-The hosted implementation and operations remain private for now. This repo is the public contract and narrative layer.
+This repo is the public contract, documentation, schema, and CLI surface for Proof of Ship.
 
 ## Core idea in 30 seconds
 
@@ -67,7 +67,7 @@ proofofship score examples/score.sample.json --handle example-builder --json
 
 - [`ship-receipts`](https://github.com/Spitfire-Cowboy/ship-receipts) — local receipt generator / evidence layer
 - `proofofship` — independent verifier and public trust surface
-- private implementation and operations remain in a separate internal repository for now
+- this repo documents the public Proof of Ship surface directly
 
 ## Public URLs
 

@@ -23,7 +23,7 @@
 
 This public repo is documentation-first.
 
-It intentionally excludes private deployment internals, staging runbooks, and sensitive operational details from the private implementation repo.
+It focuses on the public contract: docs, schemas, examples, and the public site surface.
 
 ## CLI
 

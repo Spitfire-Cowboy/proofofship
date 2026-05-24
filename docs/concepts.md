@@ -19,4 +19,4 @@ Included here only as background context for the broader ecosystem.
 ## This repo (Proof of Ship)
 This is the public product and protocol layer: public docs, schemas, and landing-page source for the hosted verification and reputation surface.
 
-Deliberate constraint: keep the public surface small, explicit, and safe to publish while the hosted implementation remains private.
+Deliberate constraint: keep the public surface small, explicit, and auditable. Public claims should match what this repo actually documents and exposes.

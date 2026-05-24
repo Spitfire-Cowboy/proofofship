@@ -2,19 +2,19 @@
 
 This document defines the **public contract** for GitHub sign-in and public-repository linking.
 
-It does **not** expose private deployment details, session storage internals, or anti-abuse heuristics. It defines only the web-visible behavior and payload shapes that public clients may rely on.
+It defines the web-visible behavior and payload shapes that public clients may rely on. It does not attempt to document every operator detail or internal implementation choice.
 
 ## Goals
 
 1. Let a builder sign in with GitHub instead of creating a local password.
 2. Let a signed-in builder link public repositories they control.
 3. Keep the trust boundary explicit: GitHub OAuth proves identity; repo linking proves repository relationship; neither by itself proves authorship of every line of code.
-4. Publish enough of the contract that other tools can integrate without seeing the private implementation.
+4. Publish enough of the contract that other tools can integrate against stable public behavior.
 
 ## Non-goals
 
 - No local username/password accounts
-- No publication of private anti-abuse heuristics
+- No promise that every internal policy decision will be externally documented
 - No promise that every future identity provider will match GitHub semantics
 
 ## Identity model
@@ -100,7 +100,7 @@ A repo may be linked when the signed-in user is at least one of:
 - organization admin for the repo's org
 - collaborator with push access
 
-The public contract says **what must be true**, not exactly how the private implementation verifies it.
+The public contract says **what must be true**, not every implementation detail of how that truth is established.
 
 ## Repo-linking endpoints
 
