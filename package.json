@@ -1,0 +1,11 @@
+{
+  "name": "proofofship-site",
+  "private": true,
+  "scripts": {
+    "build:site-css": "tailwindcss -i ./docs/web/site/app.css -o ./docs/web/site/site.css --minify"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.13",
+    "tailwindcss": "^4.1.13"
+  }
+}

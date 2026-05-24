@@ -5,26 +5,32 @@ This directory is the public static landing page for `proofofship.com`.
 ## Contents
 
 - `index.html` — Tailwind-based marketing site
+- `site.css` — compiled self-hosted stylesheet
+- `app.css` — Tailwind source used to build the site stylesheet
 - `favicon.svg` — site icon
-- `docs/index.html` — redirect page for `/docs`
+- `docs/index.html` — first-party docs hub
 - `schemas/` — DR schema files used by the static public surface
 - `badges/` — embeddable public badge assets
 
 ## Current implementation note
 
-The site currently uses the official Tailwind browser build for fast iteration:
+The site now uses a compiled, self-hosted Tailwind stylesheet:
 
-- `https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4`
+- source: `docs/web/site/app.css`
+- output: `docs/web/site/site.css`
 
-That means the serving layer must allow that script in CSP.
+Build it with:
+
+```bash
+npm install
+npm run build:site-css
+```
 
 Current required CSP shape for the landing page:
 
 ```text
-Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline';
+Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self';
 ```
-
-If you later want a fully self-hosted production build, replace the browser build with a compiled static CSS artifact and tighten CSP again.
 
 ## Deploy options
 

@@ -25,6 +25,8 @@
 
 - [Public site source](./web/site/)
 - [Site deploy notes](./web/site/DEPLOY.md)
+- `docs/web/site/site.css`
+- `docs/web/site/app.css`
 
 ## Notes
 
