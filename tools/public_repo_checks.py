@@ -33,6 +33,9 @@ def required_paths() -> list[Path]:
         REPO_ROOT / "docs/web/site/site.webmanifest",
         REPO_ROOT / "docs/web/site/robots.txt",
         REPO_ROOT / "docs/web/site/sitemap.xml",
+        REPO_ROOT / "docs/web/site/docs/cli/index.html",
+        REPO_ROOT / "docs/web/site/docs/public-surfaces/index.html",
+        REPO_ROOT / "docs/web/site/docs/verifier-architecture/index.html",
         REPO_ROOT / "docs/web/site/docs/schemas/index.html",
         REPO_ROOT / "docs/web/site/docs/examples/index.html",
         REPO_ROOT / "docs/web/site/docs/badges/index.html",
@@ -121,3 +124,24 @@ def invalid_public_examples() -> list[str]:
             loc = ".".join(str(x) for x in err.absolute_path) or "<root>"
             errors.append(f"{example_path.relative_to(REPO_ROOT)} -> {schema_path.name} @ {loc}: {err.message}")
     return errors
+
+
+def forbidden_site_fallback_links() -> list[str]:
+    site_files = [
+        REPO_ROOT / "docs/web/site/index.html",
+        REPO_ROOT / "docs/web/site/docs/index.html",
+    ]
+    forbidden = [
+        "https://github.com/Spitfire-Cowboy/proofofship/tree/main/docs",
+        "https://github.com/Spitfire-Cowboy/proofofship/blob/main/docs/cli.md",
+        "https://github.com/Spitfire-Cowboy/proofofship/blob/main/docs/public-surfaces.md",
+        "https://github.com/Spitfire-Cowboy/proofofship/blob/main/docs/specs/proofofship-verifier-architecture-v1.md",
+        "https://github.com/Spitfire-Cowboy/proofofship/blob/main/docs/specs/proofofship-repo-badges-v0.md",
+    ]
+    hits = []
+    for path in site_files:
+        text = path.read_text(errors="ignore")
+        for needle in forbidden:
+            if needle in text:
+                hits.append(f"{path.relative_to(REPO_ROOT)}:{needle}")
+    return hits

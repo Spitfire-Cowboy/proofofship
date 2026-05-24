@@ -6,7 +6,7 @@ from dataclasses import asdict
 from pathlib import Path
 from typing import Any
 
-from tools.public_repo_checks import missing_required_paths, forbidden_private_strings, invalid_public_examples
+from tools.public_repo_checks import missing_required_paths, forbidden_private_strings, invalid_public_examples, forbidden_site_fallback_links
 
 from .scoring import ReceiptInput, decay_weight, reputation_score
 from .urls import profile_url, receipts_url, score_url
@@ -166,8 +166,14 @@ def cmd_check_public_surface(args: argparse.Namespace) -> int:
         "missing_required_paths": missing_required_paths(),
         "forbidden_private_strings": forbidden_private_strings(),
         "invalid_public_examples": invalid_public_examples(),
+        "forbidden_site_fallback_links": forbidden_site_fallback_links(),
     }
-    payload["ok"] = not payload["missing_required_paths"] and not payload["forbidden_private_strings"] and not payload["invalid_public_examples"]
+    payload["ok"] = (
+        not payload["missing_required_paths"]
+        and not payload["forbidden_private_strings"]
+        and not payload["invalid_public_examples"]
+        and not payload["forbidden_site_fallback_links"]
+    )
     if args.json:
         print(json.dumps(payload, indent=2))
     else:

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth bg-slate-950">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Proof of Ship CLI Reference</title>
+    <meta name="description" content="First-party hosted CLI reference for the public Proof of Ship command line surface." />
+    <link rel="canonical" href="https://proofofship.com/docs/cli/" />
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="../../site.webmanifest" />
+    <link rel="stylesheet" href="../../site.css" />
+  </head>
+  <body class="min-h-screen bg-slate-950 text-slate-100 antialiased">
+    <main class="shell py-10 sm:py-14 lg:py-18">
+      <a class="inline-flex rounded-full border border-white/10 px-4 py-2 text-sm text-white hover:border-cyan-300/40" href="/docs/">Back to docs</a>
+      <h1 class="mt-6 text-4xl font-black tracking-tight text-white">CLI reference</h1>
+      <p class="mt-4 max-w-3xl text-lg leading-8 text-slate-300">The public <code class="rounded bg-white/5 px-2 py-1 text-cyan-200">proofofship</code> CLI is the first shipped product surface in this repo.</p>
+      <div class="mt-10 grid gap-4 lg:grid-cols-2">
+        <article class="surface p-6">
+          <p class="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-200/70">Install</p>
+          <pre class="mt-4 overflow-x-auto rounded-2xl bg-slate-950/80 p-4 text-sm text-slate-300 ring-1 ring-white/5"><code>pip install -e '.[dev]'</code></pre>
+        </article>
+        <article class="surface p-6">
+          <p class="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-200/70">Surface checks</p>
+          <pre class="mt-4 overflow-x-auto rounded-2xl bg-slate-950/80 p-4 text-sm text-slate-300 ring-1 ring-white/5"><code>proofofship validate --json
+proofofship check-public-surface --json</code></pre>
+        </article>
+      </div>
+      <div class="mt-10 grid gap-4 xl:grid-cols-2">
+        <article class="surface p-6"><h2 class="text-xl font-semibold text-white">proofofship weight &lt;age_days&gt;</h2><p class="mt-3 text-slate-300">Compute the time-decay weight for a receipt age.</p><pre class="mt-4 overflow-x-auto rounded-2xl bg-slate-950/80 p-4 text-sm text-slate-300 ring-1 ring-white/5"><code>proofofship weight 45 --json</code></pre></article>
+        <article class="surface p-6"><h2 class="text-xl font-semibold text-white">proofofship score &lt;receipts_file&gt;</h2><p class="mt-3 text-slate-300">Compute a public reputation score payload from receipt-like inputs.</p><pre class="mt-4 overflow-x-auto rounded-2xl bg-slate-950/80 p-4 text-sm text-slate-300 ring-1 ring-white/5"><code>proofofship score examples/score.sample.json --handle example-builder --json</code></pre></article>
+        <article class="surface p-6"><h2 class="text-xl font-semibold text-white">proofofship receipts &lt;handle&gt; &lt;receipts_file&gt;</h2><p class="mt-3 text-slate-300">Emit a public receipts payload for a profile handle.</p><pre class="mt-4 overflow-x-auto rounded-2xl bg-slate-950/80 p-4 text-sm text-slate-300 ring-1 ring-white/5"><code>proofofship receipts example-builder examples/score.sample.json --json</code></pre></article>
+        <article class="surface p-6"><h2 class="text-xl font-semibold text-white">proofofship badge &lt;verified|receipts&gt; &lt;handle&gt;</h2><p class="mt-3 text-slate-300">Emit badge URLs or Markdown for third-party repository embeds.</p><pre class="mt-4 overflow-x-auto rounded-2xl bg-slate-950/80 p-4 text-sm text-slate-300 ring-1 ring-white/5"><code>proofofship badge verified example-builder --markdown</code></pre></article>
+        <article class="surface p-6"><h2 class="text-xl font-semibold text-white">proofofship urls &lt;handle&gt;</h2><p class="mt-3 text-slate-300">Print canonical public profile URLs.</p><pre class="mt-4 overflow-x-auto rounded-2xl bg-slate-950/80 p-4 text-sm text-slate-300 ring-1 ring-white/5"><code>proofofship urls example-builder --json</code></pre></article>
+        <article class="surface p-6"><h2 class="text-xl font-semibold text-white">Example outputs</h2><ul class="mt-3 space-y-2 text-slate-300"><li><a class="text-cyan-300 hover:text-cyan-200" href="/examples/score.public.sample.json">score.public.sample.json</a></li><li><a class="text-cyan-300 hover:text-cyan-200" href="/examples/receipts.public.sample.json">receipts.public.sample.json</a></li><li><a class="text-cyan-300 hover:text-cyan-200" href="/examples/account.github.public.sample.json">account.github.public.sample.json</a></li><li><a class="text-cyan-300 hover:text-cyan-200" href="/examples/linked-repositories.public.sample.json">linked-repositories.public.sample.json</a></li></ul></article>
+      </div>
+    </main>
+  </body>
+</html>

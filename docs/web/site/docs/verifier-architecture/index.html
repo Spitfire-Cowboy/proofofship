@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth bg-slate-950">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Proof of Ship Verifier Architecture</title>
+    <meta name="description" content="First-party hosted overview of the public Proof of Ship verification pipeline." />
+    <link rel="canonical" href="https://proofofship.com/docs/verifier-architecture/" />
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="../../site.webmanifest" />
+    <link rel="stylesheet" href="../../site.css" />
+  </head>
+  <body class="min-h-screen bg-slate-950 text-slate-100 antialiased">
+    <main class="shell py-10 sm:py-14 lg:py-18">
+      <a class="inline-flex rounded-full border border-white/10 px-4 py-2 text-sm text-white hover:border-cyan-300/40" href="/docs/">Back to docs</a>
+      <h1 class="mt-6 text-4xl font-black tracking-tight text-white">Verifier architecture</h1>
+      <p class="mt-4 max-w-3xl text-lg leading-8 text-slate-300">This is the public verification pipeline: what Proof of Ship checks, in what order, and what each verification depth means.</p>
+      <article class="surface mt-10 p-6 sm:p-8">
+        <h2 class="text-2xl font-bold text-white">Pipeline overview</h2>
+        <pre class="mt-4 overflow-x-auto rounded-2xl bg-slate-950/80 p-4 text-sm text-slate-300 ring-1 ring-white/5"><code>Input envelope
+  -&gt; schema validation
+  -&gt; dedup / idempotency check
+  -&gt; identity binding
+  -&gt; artifact existence check
+  -&gt; repository visibility + permission check
+  -&gt; cryptographic evidence check
+  -&gt; final verification result</code></pre>
+        <div class="mt-8 grid gap-4 lg:grid-cols-2">
+          <div class="rounded-2xl border border-white/10 bg-white/5 p-5"><h3 class="text-lg font-semibold text-white">Stages 1–2</h3><p class="mt-3 text-slate-300">Schema validation and dedup protect machine readability and idempotency.</p></div>
+          <div class="rounded-2xl border border-white/10 bg-white/5 p-5"><h3 class="text-lg font-semibold text-white">Stages 3–4</h3><p class="mt-3 text-slate-300">Identity binding and artifact existence confirm the actor and public artifact are coherent and real.</p></div>
+          <div class="rounded-2xl border border-white/10 bg-white/5 p-5"><h3 class="text-lg font-semibold text-white">Stage 5</h3><p class="mt-3 text-slate-300">Repository visibility and permission checks keep random public artifacts from earning someone else reputation.</p></div>
+          <div class="rounded-2xl border border-white/10 bg-white/5 p-5"><h3 class="text-lg font-semibold text-white">Stage 6</h3><p class="mt-3 text-slate-300">Cryptographic evidence raises confidence beyond simple artifact existence.</p></div>
+        </div>
+        <div class="mt-8 rounded-2xl border border-white/10 bg-slate-950/70 p-5">
+          <h3 class="text-lg font-semibold text-white">Public depth tiers</h3>
+          <ul class="mt-4 space-y-3 text-slate-300"><li><strong class="text-white">0.0</strong> — Not verified</li><li><strong class="text-white">0.2</strong> — Schema valid</li><li><strong class="text-white">0.4</strong> — Artifact confirmed</li><li><strong class="text-white">0.6</strong> — Cryptographically signed</li><li><strong class="text-white">0.8</strong> — Independently attested (reserved)</li><li><strong class="text-white">1.0</strong> — Maximum assurance (reserved)</li></ul>
+        </div>
+      </article>
+    </main>
+  </body>
+</html>

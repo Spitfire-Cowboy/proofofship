@@ -9,6 +9,7 @@ from tools.public_repo_checks import (
     load_json,
     missing_required_paths,
     public_repo_links,
+    forbidden_site_fallback_links,
 )
 
 
@@ -59,3 +60,7 @@ def test_no_obvious_private_strings_leak_into_public_repo():
 
 def test_public_examples_validate_against_schemas():
     assert invalid_public_examples() == []
+
+
+def test_docs_site_does_not_fall_back_to_github_for_core_docs():
+    assert forbidden_site_fallback_links() == []
