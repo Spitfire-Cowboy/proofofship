@@ -46,3 +46,8 @@ It focuses on the public contract: docs, schemas, examples, and the public site 
 - `examples/receipts.public.sample.json`
 - `examples/account.github.public.sample.json`
 - `examples/linked-repositories.public.sample.json`
+
+## Badge assets
+
+- `docs/web/site/badges/verified.svg`
+- `docs/web/site/badges/receipts.svg`

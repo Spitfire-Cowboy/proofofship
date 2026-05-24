@@ -68,7 +68,7 @@ Both are concrete, narrow, and defensible.
 
 ## Example embed snippets
 
-Markdown badge examples the repo can eventually emit:
+Markdown badge examples the repo can emit now:
 
 ```md
 [![Verified by Proof of Ship](https://proofofship.com/badges/verified.svg)](https://proofofship.com/u/<handle>)
@@ -84,3 +84,11 @@ Every badge must answer two questions cleanly:
 2. Where can a skeptical reader inspect the evidence?
 
 If a badge cannot answer both, do not ship it.
+
+
+## Shipped assets
+
+The public site now serves these static badge assets:
+
+- `https://proofofship.com/badges/verified.svg`
+- `https://proofofship.com/badges/receipts.svg`
