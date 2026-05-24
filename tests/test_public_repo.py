@@ -25,11 +25,22 @@ def test_schema_files_parse_as_json():
     for rel in [
         "docs/web/site/schemas/dr/attestation.v0.1.schema.json",
         "docs/web/site/schemas/dr/transcript.v0.1.schema.json",
+        "docs/schemas/proofofship/score.v0.1.schema.json",
+        "docs/schemas/proofofship/receipts.v0.1.schema.json",
     ]:
         data = load_json(REPO_ROOT / rel)
         assert isinstance(data, dict)
         assert "$schema" in data
         assert "title" in data
+
+
+def test_public_examples_parse_as_json():
+    for rel in [
+        "examples/score.public.sample.json",
+        "examples/receipts.public.sample.json",
+    ]:
+        data = load_json(REPO_ROOT / rel)
+        assert isinstance(data, dict)
 
 
 def test_no_obvious_private_strings_leak_into_public_repo():

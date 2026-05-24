@@ -71,3 +71,49 @@ def test_cli_public_surface_check_passes():
     )
     payload = json.loads(proc.stdout)
     assert payload["ok"] is True
+
+
+def test_cli_public_score_payload_with_handle():
+    receipts = REPO_ROOT / "examples/score.sample.json"
+    proc = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "proofofship.cli",
+            "score",
+            str(receipts),
+            "--handle",
+            "example-builder",
+            "--json",
+        ],
+        cwd=REPO_ROOT,
+        check=True,
+        text=True,
+        capture_output=True,
+    )
+    payload = json.loads(proc.stdout)
+    assert payload["handle"] == "example-builder"
+    assert payload["score_url"].endswith("/u/example-builder/score.json")
+    assert payload["formula_version"] == "0.1"
+
+
+def test_cli_receipts_json_output():
+    receipts = REPO_ROOT / "examples/score.sample.json"
+    proc = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "proofofship.cli",
+            "receipts",
+            "example-builder",
+            str(receipts),
+            "--json",
+        ],
+        cwd=REPO_ROOT,
+        check=True,
+        text=True,
+        capture_output=True,
+    )
+    payload = json.loads(proc.stdout)
+    assert payload["receipt_count"] == 3
+    assert payload["receipts_url"].endswith("/u/example-builder/receipts.json")

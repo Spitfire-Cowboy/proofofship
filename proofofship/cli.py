@@ -45,10 +45,13 @@ def cmd_score(args: argparse.Namespace) -> int:
     receipts = _load_receipts_file(args.receipts_file)
     result = reputation_score(receipts, half_life_days=args.half_life_days)
     if args.json:
-        serializable = {
-            **result,
-            "breakdown": [asdict(item) for item in result["breakdown"]],
-        }
+        if args.handle:
+            serializable = _public_score_payload(args.handle, result, base_url=args.base_url)
+        else:
+            serializable = {
+                **result,
+                "breakdown": [asdict(item) for item in result["breakdown"]],
+            }
         print(json.dumps(serializable, indent=2))
         return 0
 
@@ -63,6 +66,42 @@ def cmd_score(args: argparse.Namespace) -> int:
             f"dispute_multiplier={item.dispute_multiplier} time_weight={item.time_weight:.6f} "
             f"contribution={item.contribution:.6f}{label}"
         )
+    return 0
+
+
+def _public_score_payload(handle: str, result: dict, *, base_url: str) -> dict[str, Any]:
+    return {
+        "handle": handle,
+        "reputation_score": result["reputation_score"],
+        "lifetime_score": result["lifetime_score"],
+        "receipt_count": result["receipt_count"],
+        "half_life_days": result["half_life_days"],
+        "formula_version": "0.1",
+        "profile_url": profile_url(handle, base_url=base_url),
+        "score_url": score_url(handle, base_url=base_url),
+        "receipts_url": receipts_url(handle, base_url=base_url),
+        "breakdown": [asdict(item) for item in result["breakdown"]],
+    }
+
+
+def cmd_receipts(args: argparse.Namespace) -> int:
+    receipts = _load_receipts_file(args.receipts_file)
+    payload = {
+        "handle": args.handle,
+        "profile_url": profile_url(args.handle, base_url=args.base_url),
+        "receipts_url": receipts_url(args.handle, base_url=args.base_url),
+        "receipt_count": len(receipts),
+        "receipts": [
+            {
+                "label": item.label,
+                "age_days": item.age_days,
+                "verification_depth": item.verification_depth,
+                "dispute_multiplier": item.dispute_multiplier,
+            }
+            for item in receipts
+        ],
+    }
+    print(json.dumps(payload, indent=2) if args.json else payload)
     return 0
 
 
@@ -110,8 +149,17 @@ def build_parser() -> argparse.ArgumentParser:
     score = sub.add_parser("score", help="Compute a reputation score from a JSON receipts file")
     score.add_argument("receipts_file")
     score.add_argument("--half-life-days", type=float, default=90.0)
+    score.add_argument("--handle", default=None, help="Optional handle for public score.json-style output")
+    score.add_argument("--base-url", default="https://proofofship.com")
     score.add_argument("--json", action="store_true")
     score.set_defaults(func=cmd_score)
+
+    receipts = sub.add_parser("receipts", help="Render a receipts.json-style payload from a JSON receipts file")
+    receipts.add_argument("handle")
+    receipts.add_argument("receipts_file")
+    receipts.add_argument("--base-url", default="https://proofofship.com")
+    receipts.add_argument("--json", action="store_true")
+    receipts.set_defaults(func=cmd_receipts)
 
     urls = sub.add_parser("urls", help="Print canonical public profile URLs for a handle")
     urls.add_argument("handle")

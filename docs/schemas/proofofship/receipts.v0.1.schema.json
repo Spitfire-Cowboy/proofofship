@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://proofofship.com/schemas/proofofship/receipts.v0.1.schema.json",
+  "title": "Proof of Ship Receipts List",
+  "type": "object",
+  "required": ["handle", "profile_url", "receipts_url", "receipt_count", "receipts"],
+  "properties": {
+    "handle": {"type": "string"},
+    "profile_url": {"type": "string", "format": "uri"},
+    "receipts_url": {"type": "string", "format": "uri"},
+    "receipt_count": {"type": "integer", "minimum": 0},
+    "receipts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["label", "age_days", "verification_depth", "dispute_multiplier"],
+        "properties": {
+          "label": {"type": ["string", "null"]},
+          "age_days": {"type": "number", "minimum": 0},
+          "verification_depth": {"type": "number", "minimum": 0, "maximum": 1},
+          "dispute_multiplier": {"type": "number", "minimum": 0, "maximum": 1}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

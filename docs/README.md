@@ -28,3 +28,13 @@ It intentionally excludes private deployment internals, staging runbooks, and se
 - Install locally with `pip install -e .`
 - Use `proofofship --help` to inspect the public CLI surface
 - The CLI currently exposes deterministic public score math, URL helpers, and repo integrity checks
+
+## Public schemas
+
+- `docs/schemas/proofofship/score.v0.1.schema.json`
+- `docs/schemas/proofofship/receipts.v0.1.schema.json`
+
+## Public examples
+
+- `examples/score.public.sample.json`
+- `examples/receipts.public.sample.json`

@@ -29,6 +29,8 @@ jobs:
         run: |
           proofofship check-public-surface --json
           proofofship score examples/score.sample.json --json
+          proofofship score examples/score.sample.json --handle example-builder --json
+          proofofship receipts example-builder examples/score.sample.json --json
 
       - name: Upload coverage
         uses: codecov/codecov-action@v6

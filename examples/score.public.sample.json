@@ -1,0 +1,37 @@
+{
+  "handle": "example-builder",
+  "reputation_score": 1.5618141015338107,
+  "lifetime_score": 2.4,
+  "receipt_count": 3,
+  "half_life_days": 90.0,
+  "formula_version": "0.1",
+  "profile_url": "https://proofofship.com/u/example-builder",
+  "score_url": "https://proofofship.com/u/example-builder/score.json",
+  "receipts_url": "https://proofofship.com/u/example-builder/receipts.json",
+  "breakdown": [
+    {
+      "age_days": 10.0,
+      "verification_depth": 0.8,
+      "dispute_multiplier": 1.0,
+      "time_weight": 0.9258747122872905,
+      "contribution": 0.7406997698298324,
+      "label": "recent signed receipt"
+    },
+    {
+      "age_days": 45.0,
+      "verification_depth": 0.6,
+      "dispute_multiplier": 1.0,
+      "time_weight": 0.7071067811865476,
+      "contribution": 0.4242640687119285,
+      "label": "older public receipt"
+    },
+    {
+      "age_days": 120.0,
+      "verification_depth": 1.0,
+      "dispute_multiplier": 1.0,
+      "time_weight": 0.3968502629920499,
+      "contribution": 0.3968502629920499,
+      "label": "stale fully verified receipt"
+    }
+  ]
+}

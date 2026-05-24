@@ -20,6 +20,8 @@ def required_paths() -> list[Path]:
         REPO_ROOT / "docs/web/site/style.css",
         REPO_ROOT / "docs/web/site/schemas/dr/attestation.v0.1.schema.json",
         REPO_ROOT / "docs/web/site/schemas/dr/transcript.v0.1.schema.json",
+        REPO_ROOT / "docs/schemas/proofofship/score.v0.1.schema.json",
+        REPO_ROOT / "docs/schemas/proofofship/receipts.v0.1.schema.json",
     ]
 
 
