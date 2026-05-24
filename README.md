@@ -8,7 +8,7 @@ It exists to answer one question:
 
 > *What has this person actually built, and how credible is that claim?*
 
-A builder ships work in a public repository. A local tool such as [`ship-receipts`](https://github.com/Spitfire-Cowboy/ship-receipts) produces a proof envelope. Proof of Ship independently verifies that claim against the public record and turns verified work into a publicly auditable reputation signal.
+A builder ships work in a public repository. A local tool such as [`ship-receipts`](https://github.com/Spitfire-Cowboy/ship-receipts) produces a proof envelope. Proof of Ship does not trust that local output blindly: it independently re-verifies the claim against the public record and turns verified work into a publicly auditable reputation signal.
 
 ## What this public repo contains
 
@@ -66,6 +66,7 @@ proofofship score examples/score.sample.json --handle example-builder --json
 ## Relationship to nearby repos
 
 - [`ship-receipts`](https://github.com/Spitfire-Cowboy/ship-receipts) — local receipt generator / evidence layer
+- `proofofship` — independent verifier and public trust surface
 - private implementation and operations remain in a separate internal repository for now
 
 ## Public URLs

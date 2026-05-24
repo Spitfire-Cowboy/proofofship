@@ -64,3 +64,23 @@ Start with two positive badges only:
 2. `Public receipts available`
 
 Both are concrete, narrow, and defensible.
+
+
+## Example embed snippets
+
+Markdown badge examples the repo can eventually emit:
+
+```md
+[![Verified by Proof of Ship](https://proofofship.com/badges/verified.svg)](https://proofofship.com/u/<handle>)
+[![Public receipts available](https://proofofship.com/badges/receipts.svg)](https://proofofship.com/u/<handle>/receipts.json)
+```
+
+These should link to a concrete public surface, not to marketing copy.
+
+## Badge design rule
+
+Every badge must answer two questions cleanly:
+1. What exactly is being claimed?
+2. Where can a skeptical reader inspect the evidence?
+
+If a badge cannot answer both, do not ship it.
