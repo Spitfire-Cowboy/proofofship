@@ -4,6 +4,17 @@ This document defines the **public contract** for GitHub sign-in and public-repo
 
 It defines the web-visible behavior and payload shapes that public clients may rely on. It does not attempt to document every operator detail or internal implementation choice, and some enforcement logic necessarily remains proprietary.
 
+## Reader summary
+
+If you only need the public mental model, it is this:
+
+1. A builder signs in with GitHub via OAuth.
+2. Proof of Ship creates a local session keyed to the GitHub account.
+3. The signed-in builder may link **public** repositories they are legitimately allowed to associate with their profile.
+4. Linked repositories expand the profile's public evidence surface; they do not bypass independent receipt verification.
+
+The important trust-boundary split is deliberate: **OAuth proves who the account is; repo linking proves which public repos that account may claim on-profile.** Reputation still comes from independently verified public artifacts.
+
 ## Goals
 
 1. Let a builder sign in with GitHub instead of creating a local password.
@@ -101,6 +112,17 @@ A repo may be linked when the signed-in user is at least one of:
 - collaborator with push access
 
 The public contract says **what must be true**, not every implementation detail of how that truth is established.
+
+### Practical reader checklist
+
+For public readers and integrators, a successful repo link implies all of the following were true at decision time:
+- the caller was authenticated with a live GitHub-backed session
+- the target repository existed on GitHub
+- the target repository was public
+- the signed-in account had an accepted relationship to that repository
+- the request passed public validation and any private abuse checks
+
+A successful repo link should be read as a **profile-configuration fact**, not as a substitute for receipt verification or code review.
 
 ## Repo-linking endpoints
 

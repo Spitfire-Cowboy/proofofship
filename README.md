@@ -97,6 +97,13 @@ This public repo now contains both shipped public assets and contract-level docs
 - verifier architecture and verification-depth semantics
 - ledger, reputation, and badge guidance specs
 
+### GitHub OAuth and repo linking, at a glance
+- **OAuth sign-in proves identity.** Proof of Ship relies on GitHub as the v1 identity anchor; no local password surface is documented here.
+- **Repo linking proves relationship, not authorship.** A linked public repo says the signed-in GitHub account can legitimately associate that repo with its public profile. It does not claim sole authorship, quality, or impact.
+- **Only public repositories are linkable in v1.** The contract covers public repo URLs, public payloads, and public profile evidence.
+- **Account and repo-linking APIs are documented, not yet claimed as shipped UI.** See [`docs/public-surfaces.md`](./docs/public-surfaces.md) for the live vs contract-only status map.
+- **Integrators should start with the contract and sample payloads.** See [`docs/specs/proofofship-github-auth-and-repo-linking-v1.md`](./docs/specs/proofofship-github-auth-and-repo-linking-v1.md), the schemas in [`docs/schemas/proofofship/`](./docs/schemas/proofofship/), and the examples in [`examples/`](./examples/).
+
 ### Still in progress
 - GitHub OAuth web login implementation
 - account/repo-linking UI

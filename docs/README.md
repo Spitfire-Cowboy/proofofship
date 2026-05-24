@@ -14,6 +14,7 @@
 - [Ledger and reputation](./specs/proofofship-ledger-and-reputation-v1.md)
 - [Verifier architecture](./specs/proofofship-verifier-architecture-v1.md)
 - [GitHub auth and repo linking](./specs/proofofship-github-auth-and-repo-linking-v1.md)
+- Hosted docs summary: `docs/web/site/docs/github-auth/index.html`
 - [Repo badge guidance](./specs/proofofship-repo-badges-v0.md)
 
 ## References

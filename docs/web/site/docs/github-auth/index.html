@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth bg-slate-950">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Proof of Ship GitHub OAuth and Repo Linking</title>
+    <meta name="description" content="Public guide to the Proof of Ship GitHub OAuth and repository-linking contract." />
+    <link rel="canonical" href="https://proofofship.com/docs/github-auth/" />
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="../../site.webmanifest" />
+    <link rel="stylesheet" href="../../site.css" />
+  </head>
+  <body class="min-h-screen bg-slate-950 text-slate-100 antialiased">
+    <main class="shell py-10 sm:py-14 lg:py-18">
+      <a class="inline-flex rounded-full border border-white/10 px-4 py-2 text-sm text-white hover:border-cyan-300/40" href="/docs/">Back to docs</a>
+      <h1 class="mt-6 text-4xl font-black tracking-tight text-white">GitHub OAuth and repo linking</h1>
+      <p class="mt-4 max-w-3xl text-lg leading-8 text-slate-300">Public-reader guide to the current Proof of Ship account-linking contract.</p>
+
+      <section class="mt-10 grid gap-4 lg:grid-cols-3">
+        <article class="surface p-6">
+          <p class="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-200/70">Step 1</p>
+          <h2 class="mt-3 text-2xl font-bold text-white">Sign in with GitHub</h2>
+          <p class="mt-4 text-sm leading-7 text-slate-300">The documented flow starts at <code>GET /auth/github/start</code>, returns from GitHub at <code>GET /auth/github/callback</code>, and creates a local authenticated session keyed to the GitHub user.</p>
+        </article>
+        <article class="surface p-6">
+          <p class="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-200/70">Step 2</p>
+          <h2 class="mt-3 text-2xl font-bold text-white">Link a public repo</h2>
+          <p class="mt-4 text-sm leading-7 text-slate-300">A signed-in builder can link a public GitHub repository when the account is allowed to associate that repo with its profile: owner, org admin, or collaborator with push access.</p>
+        </article>
+        <article class="surface p-6">
+          <p class="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-200/70">Step 3</p>
+          <h2 class="mt-3 text-2xl font-bold text-white">Still verify independently</h2>
+          <p class="mt-4 text-sm leading-7 text-slate-300">OAuth and linking do not grant reputation on their own. Receipts, commits, signatures, and public artifacts still need separate verification before a score changes.</p>
+        </article>
+      </section>
+
+      <section class="mt-10 grid gap-4 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+        <article class="surface p-6">
+          <p class="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-200/70">Trust boundary</p>
+          <ul class="mt-4 space-y-3 text-sm leading-7 text-slate-300">
+            <li><strong class="text-white">OAuth proves identity.</strong> In v1, Proof of Ship treats GitHub as the canonical authenticated identity.</li>
+            <li><strong class="text-white">Repo linking proves relationship.</strong> A successful link says the account can legitimately associate that public repository with its profile.</li>
+            <li><strong class="text-white">Linking does not prove authorship.</strong> It does not claim sole authorship, code quality, project impact, or that every line came from the signed-in user.</li>
+            <li><strong class="text-white">Only public repos are in scope here.</strong> The documented payloads and examples cover public-repository linking in v1.</li>
+          </ul>
+        </article>
+        <article class="surface p-6">
+          <p class="text-sm font-semibold uppercase tracking-[0.22em] text-amber-300/80">Current status</p>
+          <p class="mt-4 text-sm leading-7 text-slate-300">These routes and payloads are documented as a public contract. That means integrators can build against the route shapes and schemas, but this page does not claim a broadly deployed first-party hosted account settings UI yet.</p>
+          <div class="mt-5 flex flex-wrap gap-3 text-sm">
+            <a class="inline-flex items-center justify-center rounded-full bg-cyan-400 px-5 py-3 font-semibold text-slate-950 transition hover:bg-cyan-300" href="/docs/public-surfaces/">See status map</a>
+            <a class="inline-flex items-center justify-center rounded-full border border-white/10 px-5 py-3 font-semibold text-white transition hover:border-cyan-300/40 hover:bg-white/5" href="https://github.com/Spitfire-Cowboy/proofofship/blob/main/docs/specs/proofofship-github-auth-and-repo-linking-v1.md">Read full spec on GitHub</a>
+          </div>
+        </article>
+      </section>
+
+      <section class="mt-10 grid gap-4 lg:grid-cols-2">
+        <article class="surface p-6">
+          <p class="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-200/70">Public endpoints</p>
+          <ul class="mt-4 space-y-3 text-sm leading-7 text-slate-300">
+            <li><code>GET /auth/github/start</code></li>
+            <li><code>GET /auth/github/callback?code=...&amp;state=...</code></li>
+            <li><code>POST /auth/logout</code></li>
+            <li><code>GET /api/v1/account</code></li>
+            <li><code>GET /api/v1/account/repositories</code></li>
+            <li><code>POST /api/v1/account/repositories</code></li>
+            <li><code>DELETE /api/v1/account/repositories/{owner}/{repo}</code></li>
+          </ul>
+        </article>
+        <article class="surface p-6">
+          <p class="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-200/70">Schemas and examples</p>
+          <ul class="mt-4 space-y-3 text-sm leading-7 text-slate-300">
+            <li><a class="text-cyan-300 hover:text-cyan-200" href="/schemas/proofofship/github-account.v0.1.schema.json">github-account.v0.1.schema.json</a></li>
+            <li><a class="text-cyan-300 hover:text-cyan-200" href="/schemas/proofofship/linked-repositories.v0.1.schema.json">linked-repositories.v0.1.schema.json</a></li>
+            <li><a class="text-cyan-300 hover:text-cyan-200" href="/schemas/proofofship/link-repository-request.v0.1.schema.json">link-repository-request.v0.1.schema.json</a></li>
+            <li><a class="text-cyan-300 hover:text-cyan-200" href="/schemas/proofofship/link-repository-result.v0.1.schema.json">link-repository-result.v0.1.schema.json</a></li>
+            <li><a class="text-cyan-300 hover:text-cyan-200" href="/examples/account.github.public.sample.json">account.github.public.sample.json</a></li>
+            <li><a class="text-cyan-300 hover:text-cyan-200" href="/examples/linked-repositories.public.sample.json">linked-repositories.public.sample.json</a></li>
+            <li><a class="text-cyan-300 hover:text-cyan-200" href="/examples/link-repository-request.public.sample.json">link-repository-request.public.sample.json</a></li>
+            <li><a class="text-cyan-300 hover:text-cyan-200" href="/examples/link-repository-result.public.sample.json">link-repository-result.public.sample.json</a></li>
+          </ul>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

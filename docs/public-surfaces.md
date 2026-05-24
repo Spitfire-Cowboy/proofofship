@@ -27,6 +27,8 @@ This page maps the currently documented public surfaces of Proof of Ship.
 
 ## Auth and account contract
 
+GitHub OAuth and repo linking are currently documented as a **public contract**. That means readers can rely on the route shapes, payload schemas, and trust-boundary language below, but should not infer that a first-party hosted settings UI is already live.
+
 | Surface | Status | Notes |
 |---|---|---|
 | `GET /auth/github/start` | contract-only | OAuth initiation flow |
@@ -36,6 +38,13 @@ This page maps the currently documented public surfaces of Proof of Ship.
 | `GET /api/v1/account/repositories` | contract-only | Linked repositories payload published |
 | `POST /api/v1/account/repositories` | contract-only | Link request/result schemas published |
 | `DELETE /api/v1/account/repositories/{owner}/{repo}` | contract-only | Unlink behavior documented |
+
+### How to read this slice
+
+- **Identity:** GitHub OAuth authenticates the account.
+- **Association:** Repo linking associates a public repository with that authenticated profile.
+- **Verification:** Receipts and public artifacts are still re-verified independently before reputation is awarded.
+- **Current status:** Contract is documented in-repo; broad hosted UI deployment is not claimed here.
 
 ## Repo-shipped JSON schemas
 
