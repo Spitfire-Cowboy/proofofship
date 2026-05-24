@@ -1,0 +1,17 @@
+[
+  {
+    "label": "recent signed receipt",
+    "age_days": 10,
+    "verification_depth": 0.8
+  },
+  {
+    "label": "older public receipt",
+    "age_days": 45,
+    "verification_depth": 0.6
+  },
+  {
+    "label": "stale fully verified receipt",
+    "age_days": 120,
+    "verification_depth": 1.0
+  }
+]

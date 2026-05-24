@@ -16,14 +16,19 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install test deps
+      - name: Install package
         run: |
           python -m pip install --upgrade pip
-          python -m pip install pytest pytest-cov
+          python -m pip install -e '.[dev]'
 
-      - name: Run smoke tests
+      - name: Run tests
         run: |
-          python -m pytest -q --cov=tools.public_repo_checks --cov-report=xml
+          python -m pytest -q --cov=proofofship --cov=tools.public_repo_checks --cov-report=xml
+
+      - name: CLI smoke
+        run: |
+          proofofship check-public-surface --json
+          proofofship score examples/score.sample.json --json
 
       - name: Upload coverage
         uses: codecov/codecov-action@v6

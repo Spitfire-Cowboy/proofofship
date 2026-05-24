@@ -2,7 +2,7 @@
 
 **Independent verification and reputation from public evidence.**
 
-Proof of Ship is the public home for the product narrative, protocol surface, schemas, and landing-page source for `proofofship.com`.
+Proof of Ship is the public home for the product narrative, protocol surface, schemas, landing-page source for `proofofship.com`, and a small Python CLI that exposes the deterministic public scoring math.
 
 It exists to answer one question:
 
@@ -16,6 +16,7 @@ A builder ships work in a public repository. A local tool such as [`ship-receipt
 - protocol and scoring specs
 - public JSON schemas
 - the landing-page source for `proofofship.com`
+- a Python CLI for deterministic score math, URL helpers, and public-surface integrity checks
 - contribution / security / review config for the public surface
 
 ## What this public repo does **not** contain
@@ -36,6 +37,23 @@ The hosted implementation and operations remain private for now. This repo is th
 5. Anyone can inspect the rules and recompute the score from public inputs.
 
 No self-reported prestige. If it cannot be independently verified, it does not count.
+
+## Python CLI
+
+The first public product surface is a **Python CLI**.
+
+Current commands:
+- `proofofship weight <age_days>` — compute time-decay weight
+- `proofofship score examples/score.sample.json --json` — compute deterministic score breakdowns from public-style receipt summaries
+- `proofofship urls <handle>` — print canonical public profile URLs
+- `proofofship check-public-surface` — verify the public repo contains the expected files and no obvious secret-like strings
+
+Quick start:
+
+```bash
+pip install -e .
+proofofship score examples/score.sample.json --json
+```
 
 ## Repo map
 

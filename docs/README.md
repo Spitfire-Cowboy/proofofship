@@ -22,3 +22,9 @@
 This public repo is documentation-first.
 
 It intentionally excludes private deployment internals, staging runbooks, and sensitive operational details from the private implementation repo.
+
+## CLI
+
+- Install locally with `pip install -e .`
+- Use `proofofship --help` to inspect the public CLI surface
+- The CLI currently exposes deterministic public score math, URL helpers, and repo integrity checks
