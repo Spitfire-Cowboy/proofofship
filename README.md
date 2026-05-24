@@ -26,7 +26,7 @@ A builder ships work in a public repository. A local tool such as [`ship-receipt
 - undocumented implementation details that are not part of the public contract
 - unsupported claims beyond what this repo actually documents and exposes
 
-This repo is the public contract, documentation, schema, and CLI surface for Proof of Ship.
+This repo is the public contract, documentation, schema, and CLI surface for Proof of Ship. Some operator-side and anti-abuse code remains intentionally proprietary because the project requires hidden enforcement and trust-boundary logic.
 
 ## Core idea in 30 seconds
 

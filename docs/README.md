@@ -23,7 +23,7 @@
 
 This public repo is documentation-first.
 
-It focuses on the public contract: docs, schemas, examples, and the public site surface.
+It focuses on the public contract: docs, schemas, examples, and the public site surface. Some operator-side and anti-abuse logic is intentionally not part of the public repo.
 
 ## CLI
 

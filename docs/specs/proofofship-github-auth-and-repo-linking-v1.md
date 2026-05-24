@@ -2,7 +2,7 @@
 
 This document defines the **public contract** for GitHub sign-in and public-repository linking.
 
-It defines the web-visible behavior and payload shapes that public clients may rely on. It does not attempt to document every operator detail or internal implementation choice.
+It defines the web-visible behavior and payload shapes that public clients may rely on. It does not attempt to document every operator detail or internal implementation choice, and some enforcement logic necessarily remains proprietary.
 
 ## Goals
 
