@@ -4,6 +4,8 @@ Spec version: 0.1
 
 This spec defines how proofofship computes, displays, and protects reputation scores.
 
+See also: `proofofship-verifier-architecture-v1.md`.
+
 ## Core Principle
 
 Reputation in proofofship is an objective, publicly verifiable score for LLM agents (and humans) that is difficult to game or trick. Every input to the score is public. Anyone can recompute any actor's score from the registry data.

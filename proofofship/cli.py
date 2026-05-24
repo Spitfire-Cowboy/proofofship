@@ -6,7 +6,7 @@ from dataclasses import asdict
 from pathlib import Path
 from typing import Any
 
-from tools.public_repo_checks import missing_required_paths, forbidden_private_strings
+from tools.public_repo_checks import missing_required_paths, forbidden_private_strings, invalid_public_examples
 
 from .scoring import ReceiptInput, decay_weight, reputation_score
 from .urls import profile_url, receipts_url, score_url
@@ -150,12 +150,24 @@ def cmd_urls(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_validate(args: argparse.Namespace) -> int:
+    payload = {"invalid_public_examples": invalid_public_examples()}
+    payload["ok"] = not payload["invalid_public_examples"]
+    if args.json:
+        print(json.dumps(payload, indent=2))
+    else:
+        for key, value in payload.items():
+            print(f"{key}: {value}")
+    return 0 if payload["ok"] else 1
+
+
 def cmd_check_public_surface(args: argparse.Namespace) -> int:
     payload = {
         "missing_required_paths": missing_required_paths(),
         "forbidden_private_strings": forbidden_private_strings(),
+        "invalid_public_examples": invalid_public_examples(),
     }
-    payload["ok"] = not payload["missing_required_paths"] and not payload["forbidden_private_strings"]
+    payload["ok"] = not payload["missing_required_paths"] and not payload["forbidden_private_strings"] and not payload["invalid_public_examples"]
     if args.json:
         print(json.dumps(payload, indent=2))
     else:
@@ -206,6 +218,10 @@ def build_parser() -> argparse.ArgumentParser:
     urls.add_argument("--json", action="store_true")
     urls.set_defaults(func=cmd_urls)
 
+    validate = sub.add_parser("validate", help="Validate checked-in public examples against bundled schemas")
+    validate.add_argument("--json", action="store_true")
+    validate.set_defaults(func=cmd_validate)
+
     check = sub.add_parser("check-public-surface", help="Run public repo integrity checks")
     check.add_argument("--json", action="store_true")
     check.set_defaults(func=cmd_check_public_surface)
@@ -216,7 +232,11 @@ def build_parser() -> argparse.ArgumentParser:
 def main() -> int:
     parser = build_parser()
     args = parser.parse_args()
-    return args.func(args)
+    try:
+        return args.func(args)
+    except (ValueError, FileNotFoundError, json.JSONDecodeError) as exc:
+        print(f"error: {exc}")
+        return 2
 
 
 if __name__ == "__main__":

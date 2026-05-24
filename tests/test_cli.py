@@ -158,3 +158,30 @@ def test_cli_badge_json_output():
     payload = json.loads(proc.stdout)
     assert payload["badge_url"].endswith("/badges/receipts.svg")
     assert payload["target_url"].endswith("/u/example-builder/receipts.json")
+
+
+def test_cli_validate_examples_json_output():
+    proc = subprocess.run(
+        [sys.executable, "-m", "proofofship.cli", "validate", "--json"],
+        cwd=REPO_ROOT,
+        check=True,
+        text=True,
+        capture_output=True,
+    )
+    payload = json.loads(proc.stdout)
+    assert payload["ok"] is True
+
+
+def test_cli_invalid_input_returns_clean_error():
+    bad = REPO_ROOT / "examples" / "bad.json"
+    bad.write_text('{"oops": true}\n')
+    proc = subprocess.run(
+        [sys.executable, "-m", "proofofship.cli", "score", str(bad)],
+        cwd=REPO_ROOT,
+        check=False,
+        text=True,
+        capture_output=True,
+    )
+    assert proc.returncode == 2
+    assert "error:" in proc.stdout
+    bad.unlink()

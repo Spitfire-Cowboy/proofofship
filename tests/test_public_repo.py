@@ -5,6 +5,7 @@ from pathlib import Path
 from tools.public_repo_checks import (
     REPO_ROOT,
     forbidden_private_strings,
+    invalid_public_examples,
     load_json,
     missing_required_paths,
     public_repo_links,
@@ -44,6 +45,8 @@ def test_public_examples_parse_as_json():
         "examples/receipts.public.sample.json",
         "examples/account.github.public.sample.json",
         "examples/linked-repositories.public.sample.json",
+        "examples/link-repository-request.public.sample.json",
+        "examples/link-repository-result.public.sample.json",
     ]:
         data = load_json(REPO_ROOT / rel)
         assert isinstance(data, dict)
@@ -52,3 +55,7 @@ def test_public_examples_parse_as_json():
 def test_no_obvious_private_strings_leak_into_public_repo():
     hits = forbidden_private_strings()
     assert hits == []
+
+
+def test_public_examples_validate_against_schemas():
+    assert invalid_public_examples() == []

@@ -4,15 +4,22 @@
 
 1. [Concepts](./concepts.md)
 2. [Global ledger contract](./global-ledger-contract.md)
-3. [Roadmap](./specs/proofofship-roadmap-v1.md)
+3. [Public surfaces reference](./public-surfaces.md)
+4. [Roadmap](./specs/proofofship-roadmap-v1.md)
 
 ## Core specs
 
 - [Reputation model](./specs/proofofship-reputation-model-v1.md)
 - [Global game loop](./specs/proofofship-global-game-loop-v1.md)
 - [Ledger and reputation](./specs/proofofship-ledger-and-reputation-v1.md)
+- [Verifier architecture](./specs/proofofship-verifier-architecture-v1.md)
 - [GitHub auth and repo linking](./specs/proofofship-github-auth-and-repo-linking-v1.md)
 - [Repo badge guidance](./specs/proofofship-repo-badges-v0.md)
+
+## References
+
+- [CLI reference](./cli.md)
+- [Public surfaces reference](./public-surfaces.md)
 
 ## Website
 
@@ -29,7 +36,7 @@ It focuses on the public contract: docs, schemas, examples, and the public site 
 
 - Install locally with `pip install -e .`
 - Use `proofofship --help` to inspect the public CLI surface
-- The CLI currently exposes deterministic public score math, URL helpers, and repo integrity checks
+- The CLI currently exposes deterministic public score math, badge helpers, schema validation, URL helpers, and repo integrity checks
 
 ## Public schemas
 
@@ -46,6 +53,9 @@ It focuses on the public contract: docs, schemas, examples, and the public site 
 - `examples/receipts.public.sample.json`
 - `examples/account.github.public.sample.json`
 - `examples/linked-repositories.public.sample.json`
+- `examples/link-repository-request.public.sample.json`
+- `examples/link-repository-result.public.sample.json`
+- `examples/global-ledger.sample.jsonl`
 
 ## Badge assets
 

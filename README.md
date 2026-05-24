@@ -46,10 +46,11 @@ Current commands:
 - `proofofship weight <age_days>` — compute time-decay weight
 - `proofofship score examples/score.sample.json --handle example-builder --json` — emit a public `score.json`-style payload
 - `proofofship receipts <handle> examples/score.sample.json --json` — emit a public `receipts.json`-style payload
-- checked-in examples live at `examples/score.public.sample.json` and `examples/receipts.public.sample.json`
+- checked-in examples live at `examples/score.public.sample.json`, `examples/receipts.public.sample.json`, and repo-linking samples
 - `proofofship badge <verified|receipts> <handle>` — emit badge URLs or embeddable markdown
 - `proofofship urls <handle>` — print canonical public profile URLs
-- `proofofship check-public-surface` — verify the public repo contains the expected files and no obvious secret-like strings
+- `proofofship validate` — validate checked-in public examples against bundled schemas
+- `proofofship check-public-surface` — verify the public repo contains the expected files, valid examples, and no obvious secret-like strings
 
 Quick start:
 
@@ -62,6 +63,8 @@ proofofship score examples/score.sample.json --handle example-builder --json
 
 - [`docs/`](./docs/) — public docs index
 - [`docs/specs/`](./docs/specs/) — protocol, ledger, scoring, auth, and roadmap specs
+- [`docs/cli.md`](./docs/cli.md) — CLI reference
+- [`docs/public-surfaces.md`](./docs/public-surfaces.md) — live vs repo-shipped vs contract-only surfaces
 - [`docs/web/site/`](./docs/web/site/) — static source for the public landing page
 
 ## Relationship to nearby repos
@@ -73,27 +76,32 @@ proofofship score examples/score.sample.json --handle example-builder --json
 ## Public URLs
 
 - Site: <https://proofofship.com>
-- Planned public profiles: `https://proofofship.com/u/<handle>`
-- Planned score JSON: `https://proofofship.com/u/<handle>/score.json`
-- Planned receipts JSON: `https://proofofship.com/u/<handle>/receipts.json`
+- Public profiles: `https://proofofship.com/u/<handle>`
+- Public score JSON: `https://proofofship.com/u/<handle>/score.json`
+- Public receipts JSON: `https://proofofship.com/u/<handle>/receipts.json`
+- Public badges: `https://proofofship.com/badges/verified.svg`, `https://proofofship.com/badges/receipts.svg`
 
 ## Status
 
-This public repo is intentionally thin and documentation-first.
+This public repo now contains both shipped public assets and contract-level docs.
 
-What exists publicly here today:
-- public landing-page source
-- public schemas
-- public product and scoring docs
-- public GitHub OAuth and repo-linking contract docs
+### Publicly shipped today
+- live landing page at `proofofship.com`
+- live public badge assets
+- public profile, score, and receipts route shapes
+- public schemas, examples, and badge assets in the repo
+- public CLI for scores, receipts, badges, URLs, and repo checks
 
-What is still in progress overall:
+### Contract-level docs in this repo
+- GitHub OAuth and account/repo-linking contract
+- verifier architecture and verification-depth semantics
+- ledger, reputation, and badge guidance specs
+
+### Still in progress
 - GitHub OAuth web login implementation
 - account/repo-linking UI
-- public profile pages
-- hosted verification service as a public code surface
 
-See [`docs/specs/proofofship-roadmap-v1.md`](./docs/specs/proofofship-roadmap-v1.md).
+See [`docs/public-surfaces.md`](./docs/public-surfaces.md) for the live vs repo-shipped vs contract-only map.
 
 ## License
 
