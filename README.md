@@ -47,6 +47,7 @@ Current commands:
 - `proofofship score examples/score.sample.json --handle example-builder --json` — emit a public `score.json`-style payload
 - `proofofship receipts <handle> examples/score.sample.json --json` — emit a public `receipts.json`-style payload
 - checked-in examples live at `examples/score.public.sample.json` and `examples/receipts.public.sample.json`
+- `proofofship badge <verified|receipts> <handle>` — emit badge URLs or embeddable markdown
 - `proofofship urls <handle>` — print canonical public profile URLs
 - `proofofship check-public-surface` — verify the public repo contains the expected files and no obvious secret-like strings
 

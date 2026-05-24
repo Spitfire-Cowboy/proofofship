@@ -12,6 +12,22 @@ from .scoring import ReceiptInput, decay_weight, reputation_score
 from .urls import profile_url, receipts_url, score_url
 
 
+def badge_asset_url(kind: str, *, base_url: str) -> str:
+    return f"{base_url.rstrip('/')}/badges/{kind}.svg"
+
+
+def badge_markdown(kind: str, handle: str, *, base_url: str) -> str:
+    targets = {
+        "verified": profile_url(handle, base_url=base_url),
+        "receipts": receipts_url(handle, base_url=base_url),
+    }
+    labels = {
+        "verified": "Verified by Proof of Ship",
+        "receipts": "Public receipts available",
+    }
+    return f"[![{labels[kind]}]({badge_asset_url(kind, base_url=base_url)})]({targets[kind]})"
+
+
 def _load_receipts_file(path: str | Path) -> list[ReceiptInput]:
     data = json.loads(Path(path).read_text())
     if not isinstance(data, list):
@@ -105,6 +121,21 @@ def cmd_receipts(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_badge(args: argparse.Namespace) -> int:
+    payload: dict[str, Any] = {
+        "kind": args.kind,
+        "handle": args.handle,
+        "badge_url": badge_asset_url(args.kind, base_url=args.base_url),
+        "target_url": profile_url(args.handle, base_url=args.base_url) if args.kind == "verified" else receipts_url(args.handle, base_url=args.base_url),
+        "markdown": badge_markdown(args.kind, args.handle, base_url=args.base_url),
+    }
+    if args.json:
+        print(json.dumps(payload, indent=2))
+    else:
+        print(payload["markdown"] if args.markdown else payload["badge_url"])
+    return 0
+
+
 def cmd_urls(args: argparse.Namespace) -> int:
     payload: dict[str, Any] = {
         "profile": profile_url(args.handle, base_url=args.base_url),
@@ -160,6 +191,14 @@ def build_parser() -> argparse.ArgumentParser:
     receipts.add_argument("--base-url", default="https://proofofship.com")
     receipts.add_argument("--json", action="store_true")
     receipts.set_defaults(func=cmd_receipts)
+
+    badge = sub.add_parser("badge", help="Print badge URL or markdown for a public Proof of Ship badge")
+    badge.add_argument("kind", choices=["verified", "receipts"])
+    badge.add_argument("handle")
+    badge.add_argument("--base-url", default="https://proofofship.com")
+    badge.add_argument("--markdown", action="store_true")
+    badge.add_argument("--json", action="store_true")
+    badge.set_defaults(func=cmd_badge)
 
     urls = sub.add_parser("urls", help="Print canonical public profile URLs for a handle")
     urls.add_argument("handle")

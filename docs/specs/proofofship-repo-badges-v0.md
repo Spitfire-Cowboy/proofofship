@@ -92,3 +92,13 @@ The public site now serves these static badge assets:
 
 - `https://proofofship.com/badges/verified.svg`
 - `https://proofofship.com/badges/receipts.svg`
+
+
+## CLI helper
+
+The public CLI can emit badge material directly:
+
+```bash
+proofofship badge verified <handle> --markdown
+proofofship badge receipts <handle> --json
+```

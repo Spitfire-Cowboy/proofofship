@@ -5,8 +5,10 @@ This directory is the public static landing page for `proofofship.com`.
 ## Contents
 
 - `index.html` — Tailwind-based marketing site
+- `favicon.svg` — site icon
 - `docs/index.html` — redirect page for `/docs`
 - `schemas/` — DR schema files used by the static public surface
+- `badges/` — embeddable public badge assets
 
 ## Current implementation note
 

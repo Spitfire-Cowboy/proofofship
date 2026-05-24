@@ -117,3 +117,44 @@ def test_cli_receipts_json_output():
     payload = json.loads(proc.stdout)
     assert payload["receipt_count"] == 3
     assert payload["receipts_url"].endswith("/u/example-builder/receipts.json")
+
+
+def test_cli_badge_markdown_output():
+    proc = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "proofofship.cli",
+            "badge",
+            "verified",
+            "example-builder",
+            "--markdown",
+        ],
+        cwd=REPO_ROOT,
+        check=True,
+        text=True,
+        capture_output=True,
+    )
+    assert "badges/verified.svg" in proc.stdout
+    assert "/u/example-builder" in proc.stdout
+
+
+def test_cli_badge_json_output():
+    proc = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "proofofship.cli",
+            "badge",
+            "receipts",
+            "example-builder",
+            "--json",
+        ],
+        cwd=REPO_ROOT,
+        check=True,
+        text=True,
+        capture_output=True,
+    )
+    payload = json.loads(proc.stdout)
+    assert payload["badge_url"].endswith("/badges/receipts.svg")
+    assert payload["target_url"].endswith("/u/example-builder/receipts.json")
