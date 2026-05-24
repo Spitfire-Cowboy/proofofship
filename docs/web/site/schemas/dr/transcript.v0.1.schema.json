@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://proofofship.com/schemas/dr/transcript.v0.1.schema.json",
+  "title": "DR Transcript",
+  "description": "Diminishing-returns scoring session transcript. Records the full reasoning chain for a decision-quality attestation.",
+  "type": "object",
+  "required": ["schema_version", "transcript_id", "session_id", "created_at", "rounds", "summary"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "0.1",
+      "description": "Schema version. Must be '0.1' for this schema."
+    },
+    "transcript_id": {
+      "type": "string",
+      "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
+      "description": "ULID uniquely identifying this transcript."
+    },
+    "session_id": {
+      "type": "string",
+      "description": "Identifier for the work session this transcript belongs to."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the transcript was produced."
+    },
+    "agent": {
+      "type": "string",
+      "description": "Identifier of the agent or human that produced the transcript (e.g. 'rowan', 'campion', 'talos')."
+    },
+    "context_ref": {
+      "type": "string",
+      "description": "Optional reference to the work item this transcript evaluates (e.g. a GitHub issue URL or PR URL)."
+    },
+    "rounds": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Ordered list of evaluation rounds. Each round applies the DR scoring formula.",
+      "items": {
+        "$ref": "#/$defs/round"
+      }
+    },
+    "summary": {
+      "$ref": "#/$defs/summary"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "round": {
+      "type": "object",
+      "required": ["round_number", "hypothesis", "evidence", "dr_score"],
+      "properties": {
+        "round_number": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "1-based index of this round within the session."
+        },
+        "hypothesis": {
+          "type": "string",
+          "description": "The claim or decision being evaluated in this round."
+        },
+        "evidence": {
+          "type": "array",
+          "description": "Evidence items considered in this round.",
+          "items": {
+            "type": "object",
+            "required": ["kind", "content"],
+            "properties": {
+              "kind": {
+                "type": "string",
+                "enum": ["observation", "counterpoint", "data", "prior_art", "analogy", "authority"],
+                "description": "Classification of this evidence item."
+              },
+              "content": {
+                "type": "string",
+                "description": "The evidence text."
+              },
+              "source": {
+                "type": "string",
+                "description": "Optional URL or citation for the evidence source."
+              },
+              "weight": {
+                "type": "number",
+                "minimum": 0.0,
+                "maximum": 1.0,
+                "description": "Relative importance assigned to this evidence item (0–1)."
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "dr_score": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Diminishing-returns score for this round (0 = no new signal, 1 = maximum new signal)."
+        },
+        "novelty_rate": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Fraction of evidence in this round that was novel vs. previously seen."
+        },
+        "agent_notes": {
+          "type": "string",
+          "description": "Optional free-text notes from the evaluating agent for this round."
+        }
+      },
+      "additionalProperties": false
+    },
+    "summary": {
+      "type": "object",
+      "required": ["total_rounds", "final_score", "signal", "readiness"],
+      "properties": {
+        "total_rounds": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Total number of evaluation rounds completed."
+        },
+        "final_score": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Aggregate DR score across all rounds (diminishing-returns weighted sum)."
+        },
+        "signal": {
+          "type": "string",
+          "enum": ["SHIP", "CONTINUE", "ESCALATE", "BLOCK"],
+          "description": "Decision signal emitted by the DR engine: SHIP = proceed, CONTINUE = more work needed, ESCALATE = human review required, BLOCK = do not proceed."
+        },
+        "readiness": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Overall readiness score (0 = not ready, 1 = fully ready)."
+        },
+        "novelty_rate": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Average novelty rate across all rounds."
+        },
+        "enforcement_level": {
+          "type": "string",
+          "enum": ["PERMISSIVE", "STANDARD", "STRICT", "LOCKDOWN"],
+          "description": "Enforcement level in effect at session close."
+        },
+        "stop_reason": {
+          "type": "string",
+          "description": "Human-readable explanation of why the DR session terminated."
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

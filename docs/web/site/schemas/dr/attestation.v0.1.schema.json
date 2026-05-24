@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://proofofship.com/schemas/dr/attestation.v0.1.schema.json",
+  "title": "DR Attestation",
+  "description": "A verifiable attestation derived from a DR transcript. Compact form suitable for embedding in proofofship envelopes and profiles.",
+  "type": "object",
+  "required": ["schema_version", "attestation_id", "transcript_id", "attested_at", "actor", "score", "signal", "readiness"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "0.1",
+      "description": "Schema version. Must be '0.1' for this schema."
+    },
+    "attestation_id": {
+      "type": "string",
+      "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
+      "description": "ULID uniquely identifying this attestation."
+    },
+    "transcript_id": {
+      "type": "string",
+      "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
+      "description": "Reference to the full DR transcript this attestation summarises."
+    },
+    "attested_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the attestation was produced."
+    },
+    "actor": {
+      "type": "object",
+      "required": ["github_username"],
+      "properties": {
+        "github_username": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9](?:[a-zA-Z0-9]|-(?=[a-zA-Z0-9])){0,38}$",
+          "description": "GitHub username of the actor being attested."
+        },
+        "orcid": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{4}-\\d{4}-\\d{3}[\\dX]$",
+          "description": "Optional ORCID iD for the actor."
+        }
+      },
+      "additionalProperties": false
+    },
+    "score": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "description": "Aggregate DR score from the transcript (0 = no signal, 1 = maximum signal)."
+    },
+    "signal": {
+      "type": "string",
+      "enum": ["SHIP", "CONTINUE", "ESCALATE", "BLOCK"],
+      "description": "Decision signal from the DR engine."
+    },
+    "readiness": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "description": "Overall readiness score derived from the transcript."
+    },
+    "total_rounds": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Number of evaluation rounds in the source transcript."
+    },
+    "novelty_rate": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "description": "Average novelty rate across rounds — how much new signal each round contributed."
+    },
+    "context_ref": {
+      "type": "string",
+      "description": "Optional URL referencing the work item this attestation covers (e.g. GitHub PR or issue)."
+    },
+    "content_hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$",
+      "description": "SHA-256 hash of the canonical transcript JSON, for tamper evidence."
+    }
+  },
+  "additionalProperties": false
+}

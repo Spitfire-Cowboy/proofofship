@@ -1,0 +1,35 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: "en-US"
+
+tone_instructions: |
+  Be concise, concrete, and evidence-focused.
+  Treat this repo as a public contract/docs surface.
+  Flag broken public claims, misleading wording, accidental private detail leakage,
+  and inconsistencies between docs, schemas, and landing-page copy.
+
+reviews:
+  profile: "assertive"
+  request_changes_workflow: true
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: true
+  changed_files_summary: true
+  auto_review:
+    enabled: true
+    drafts: false
+  path_filters:
+    - "!**/node_modules/**"
+    - "!**/dist/**"
+    - "!**/build/**"
+    - "!**/.venv/**"
+  path_instructions:
+    - path: "docs/**"
+      instructions: "Flag unsupported product claims, stale status language, private implementation leakage, and broken public links."
+    - path: "docs/web/site/**"
+      instructions: "Prioritize correctness of public messaging, accessibility, and link hygiene."
+    - path: "**/*.json"
+      instructions: "Check schemas for consistency, clarity, and accidental breaking changes."
+
+chat:
+  auto_reply: true

@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Proof of Ship — Independent verification for builders</title>
+    <meta
+      name="description"
+      content="Proofofship independently verifies shipped work against the public record and produces recomputable reputation scores from evidence, not claims."
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="hero section" id="top">
+      <div class="container narrow">
+        <p class="eyebrow">proofofship.com</p>
+        <h1>Proof of Ship</h1>
+        <p class="subhead">Independent verification for builders. Reputation from evidence, not claims.</p>
+        <p>
+          Proofofship checks what you shipped against the public record — commits, repos, signatures — and
+          produces a reputation score from that evidence. Every input is public. Every score is recomputable.
+        </p>
+        <p><strong>If it can't be independently verified, it doesn't count.</strong></p>
+        <div class="cta-row">
+          <a class="button primary" href="https://github.com/Spitfire-Cowboy/proofofship">View the repo on GitHub →</a>
+          <a class="button secondary" href="https://github.com/Spitfire-Cowboy/proofofship/subscription">Get updates →</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section" id="problem">
+        <div class="container narrow">
+          <h2>The problem with developer profiles</h2>
+          <p>
+            Most developer profiles are self-reported. You list your projects, describe your contributions, and
+            people take your word for it.
+          </p>
+          <p>
+            There is no systematic way to ask: did this person actually build this, and can anyone verify it?
+          </p>
+          <p>
+            As AI-generated code becomes common, this gap gets worse. It is increasingly easy to claim work that
+            was generated, copied, or fabricated. The signal-to-noise ratio for evaluating builders is dropping.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="how-it-works">
+        <div class="container">
+          <h2>How proofofship works</h2>
+          <div class="card">
+            <p class="summary"><strong>Proof → Verify → Reputation.</strong></p>
+            <p>
+              A builder produces proof of shipped work. Proofofship independently verifies each claim against the
+              public record. Verified claims accumulate into a reputation score anyone can recompute.
+            </p>
+          </div>
+
+          <ol class="steps">
+            <li>
+              <h3>Ship work</h3>
+              <p>A builder commits code to a public repository.</p>
+            </li>
+            <li>
+              <h3>Generate a receipt</h3>
+              <p>
+                A local tool (ship-receipts) creates a proof envelope: artifact reference, actor identity,
+                cryptographic hash.
+              </p>
+            </li>
+            <li>
+              <h3>Verify independently</h3>
+              <p>
+                Proofofship checks each claim against the GitHub API. Does the commit exist? Is the repo public?
+                Does the actor have push access? Is the commit signed?
+              </p>
+            </li>
+            <li>
+              <h3>Score and publish</h3>
+              <p>
+                Verified receipts earn a reputation score — time-decayed, depth-weighted, and deterministic. Every
+                input is public. Anyone can recompute any score.
+              </p>
+            </li>
+          </ol>
+
+          <p class="footnote">
+            No self-reported claims contribute to the score. If proofofship cannot independently verify the
+            artifact, it earns zero reputation.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="trust-model">
+        <div class="container">
+          <h2>What “verified” actually means</h2>
+          <p>
+            Not all receipts are equal. Proofofship scores each one by how deeply it was verified — and shows that
+            depth explicitly.
+          </p>
+
+          <div class="card">
+            <h3>Verification depth</h3>
+            <ul class="depth-list" aria-label="Verification depth levels">
+              <li><span class="bar" aria-hidden="true">░░░░░</span> <strong>0.0</strong> — Not verified</li>
+              <li><span class="bar" aria-hidden="true">█░░░░</span> <strong>0.2</strong> — Schema valid</li>
+              <li><span class="bar" aria-hidden="true">██░░░</span> <strong>0.4</strong> — Artifact confirmed</li>
+              <li><span class="bar" aria-hidden="true">███░░</span> <strong>0.6</strong> — Cryptographically signed</li>
+              <li><span class="bar" aria-hidden="true">████░</span> <strong>0.8</strong> — Independently attested <em>(planned)</em></li>
+              <li><span class="bar" aria-hidden="true">█████</span> <strong>1.0</strong> — All stages passed <em>(planned)</em></li>
+            </ul>
+          </div>
+
+          <h3>Time decay</h3>
+          <p>
+            Reputation decays. A 90-day-old receipt contributes half its original weight. A year-old receipt
+            contributes about 6%.
+          </p>
+
+          <h3>What we do not verify</h3>
+          <p>
+            Proofofship verifies that artifacts exist in public repositories and that the actor has write access.
+            It does not verify code quality, project impact, or that the actor personally authored every line.
+            Push access proves permission, not authorship.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="comparison">
+        <div class="container">
+          <h2>Two tools, one trust boundary</h2>
+          <p>
+            ship-receipts is the local tool. It runs inside a single repo, generates a proof envelope for each
+            session of shipped work, and stores it alongside the code. It records evidence — it does not verify or
+            score anything.
+          </p>
+          <p>
+            proofofship is the independent service. It accepts envelopes from any conformant source, re-verifies
+            every claim from scratch against the public record, and publishes a reputation score.
+          </p>
+          <p><strong>The trust boundary is strict:</strong> proofofship never trusts scores or claims inside an envelope. All verification starts from zero.</p>
+
+          <div class="comparison-grid" role="table" aria-label="ship-receipts compared to proofofship">
+            <div class="row header" role="row">
+              <div role="columnheader">Concern</div>
+              <div role="columnheader">ship-receipts</div>
+              <div role="columnheader">proofofship</div>
+            </div>
+            <div class="row" role="row"><div>Role</div><div>Local evidence recorder</div><div>Independent verifier</div></div>
+            <div class="row" role="row"><div>Scope</div><div>Single repo</div><div>Cross-repo, cross-actor</div></div>
+            <div class="row" role="row"><div>Trust</div><div>Self-attested</div><div>Re-verified from scratch</div></div>
+            <div class="row" role="row"><div>Output</div><div>Proof envelope files</div><div>Verified ledger + scores</div></div>
+            <div class="row" role="row"><div>Identity</div><div>None (file-based)</div><div>GitHub OAuth <em>(specified, not deployed)</em></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="status">
+        <div class="container">
+          <h2>Where we are today</h2>
+          <p>
+            Proofofship is in active development. Here is an honest accounting of what exists, what is specified,
+            and what is planned.
+          </p>
+
+          <div class="status-grid">
+            <div class="card">
+              <h3>Live now</h3>
+              <ul>
+                <li>✓ Envelope validator — schema and integrity checks, tested</li>
+                <li>✓ Append-only ledger — idempotent ingestion, tested</li>
+                <li>✓ Reputation aggregator — time decay, depth weighting, dispute multiplier, lifetime score, tested</li>
+                <li>✓ GitHub account age Sybil resistance (90-day minimum), tested</li>
+                <li>✓ Sealed claims — hash-committed prior art proof, tested</li>
+                <li>✓ ORCID identity layer — store and display ORCID iDs, tested</li>
+                <li>✓ HTTP API (FastAPI) — envelopes, score, receipts, profile, claims, scoreboard</li>
+                <li>✓ Public profile pages (/u/&lt;handle&gt;) — live</li>
+                <li>✓ 264+ tests passing</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>Specified, not yet deployed</h3>
+              <ul>
+                <li>○ GitHub OAuth — flow specified, not yet integrated</li>
+                <li>○ ORCID ownership verification — Phase 2 planned</li>
+                <li>○ Sealed claims reveal endpoint — Phase 2 planned</li>
+                <li>○ DR attestation storage — planned</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3>Planned (design not finalized)</h3>
+              <ul>
+                <li>◇ Attestation graph monitoring (planned)</li>
+                <li>◇ Automated anti-gaming discounting (planned)</li>
+                <li>◇ Non-GitHub identity providers (planned)</li>
+                <li>◇ Public leaderboard (planned)</li>
+                <li>◇ Cross-platform federation (planned)</li>
+              </ul>
+            </div>
+          </div>
+
+          <p><a href="https://github.com/Spitfire-Cowboy/proofofship/blob/main/docs/specs/proofofship-roadmap-v1.md">Full roadmap →</a></p>
+        </div>
+      </section>
+
+      <section class="section" id="tiers">
+        <div class="container">
+          <h2>Choose your fleet tier</h2>
+          <p>
+            These tiers are demand signals only. They are not active subscriptions, signups, or billing flows.
+          </p>
+          <div class="tier-grid">
+            <article class="card tier-card">
+              <h3>Solo Voyage <span class="tier-price">Free</span></h3>
+              <p class="tier-tag">1 persona</p>
+              <ul>
+                <li>Basic Odyssey mode</li>
+                <li>Community game modes</li>
+                <li>Personal verification profile</li>
+              </ul>
+              <p><a class="button secondary" href="mailto:john@proofofship.com?subject=Solo%20Voyage%20interest">Notify me about Solo Voyage →</a></p>
+            </article>
+            <article class="card tier-card">
+              <h3>Pro Crew <span class="tier-price">$X/mo</span></h3>
+              <p class="tier-tag">3+ personas</p>
+              <ul>
+                <li>All official game modes</li>
+                <li>Priority fleet sync</li>
+                <li>Persona loadout for different work streams</li>
+              </ul>
+              <p><a class="button primary" href="mailto:john@proofofship.com?subject=Pro%20Crew%20interest">Notify me about Pro Crew →</a></p>
+            </article>
+            <article class="card tier-card">
+              <h3>Org Fleet <span class="tier-price">$Y/mo</span></h3>
+              <p class="tier-tag">N seats + agent slots</p>
+              <ul>
+                <li>Fleet dashboard for team visibility</li>
+                <li>Shared Ithaca goals</li>
+                <li>Human seats with delegated persona lanes</li>
+              </ul>
+              <p><a class="button secondary" href="mailto:john@proofofship.com?subject=Org%20Fleet%20interest">Notify me about Org Fleet →</a></p>
+            </article>
+          </div>
+          <p class="small">
+            Persona model: each human can run multiple personas (like an RPG party) to separate open-source, day-job, and side-project work.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="section footer" id="footer">
+      <div class="container narrow">
+        <h2>Links</h2>
+        <ul class="link-list">
+          <li><a href="https://github.com/Spitfire-Cowboy/proofofship">GitHub</a></li>
+          <li><a href="https://github.com/Spitfire-Cowboy/ship-receipts">ship-receipts</a></li>
+          <li><a href="https://github.com/Spitfire-Cowboy/proofofship/tree/main/docs">Documentation</a></li>
+          <li><a href="./docs/">/docs redirect</a></li>
+        </ul>
+
+        <p>Watch the repo on GitHub for release notifications.</p>
+        <p><a class="button secondary" href="https://github.com/Spitfire-Cowboy/proofofship">Star on GitHub →</a></p>
+
+        <p class="small">Proprietary. All rights reserved. All score inputs are public.</p>
+        <p class="small">proofofship.com — a project by John Malone</p>
+      </div>
+    </footer>
+  </body>
+</html>
