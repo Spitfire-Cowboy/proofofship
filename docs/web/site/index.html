@@ -80,9 +80,9 @@
               <a class="inline-flex items-center justify-center rounded-full border border-white/10 px-6 py-3 text-sm font-semibold text-white transition hover:border-cyan-300/40 hover:bg-white/5" href="#live-now">See what is live now</a>
             </div>
             <div class="mt-10 flex flex-wrap gap-3 text-xs uppercase tracking-[0.22em] text-slate-400 sm:text-sm">
-              <span class="rounded-full border border-white/10 px-3 py-2">Live API</span>
-              <span class="rounded-full border border-white/10 px-3 py-2">Public profiles</span>
-              <span class="rounded-full border border-white/10 px-3 py-2">264+ tests passing</span>
+              <span class="rounded-full border border-white/10 px-3 py-2">Public ledger</span>
+              <span class="rounded-full border border-white/10 px-3 py-2">Public scoreboards</span>
+              <span class="rounded-full border border-white/10 px-3 py-2">Repository badges</span>
             </div>
           </div>
 
@@ -214,8 +214,8 @@
         <div class="mx-auto max-w-3xl text-center">
           <p class="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200/70">Public surfaces</p>
           <h2 class="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">Machine-readable contracts, not vibes.</h2>
-          <p class="mt-4 text-lg leading-8 text-slate-300">The public repo now exposes concrete payload shapes for scores, receipts, GitHub-authenticated accounts, and linked repositories, plus public docs that explain how OAuth identity and repo association fit together.</p>
-          <p class="mt-4 text-base leading-7 text-slate-400">It also serves static badge assets for third-party repos and a first-party docs hub for the public surfaces.</p>
+          <p class="mt-4 text-lg leading-8 text-slate-300">The public repo exposes concrete payload shapes for scores, receipts, linked repositories, and public-facing trust surfaces.</p>
+          <p class="mt-4 text-base leading-7 text-slate-400">It also serves badge assets for third-party repos and a first-party docs hub for the public surfaces.</p>
         </div>
         <div class="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           <a class="surface min-w-0 p-6 transition hover:border-cyan-300/40 hover:bg-white/[0.08]" href="/docs/schemas/">
@@ -294,20 +294,22 @@
             <p class="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-300">Public surfaces</p>
             <ul class="mt-4 space-y-3 text-sm leading-7 text-slate-300">
               <li>✓ Public profiles at <code class="break-all text-cyan-200">/u/&lt;handle&gt;</code></li>
+              <li>✓ Public ledger at <code class="break-all text-cyan-200">/ledger</code></li>
+              <li>✓ Public scoreboards at <code class="break-all text-cyan-200">/scoreboard</code></li>
               <li>✓ <code class="break-all text-cyan-200">score.json</code> payload surface</li>
               <li>✓ <code class="break-all text-cyan-200">receipts.json</code> payload surface</li>
-              <li>✓ Public schemas and examples in the repo</li>
-              <li>✓ Public contract docs for GitHub auth and repo linking</li>
+              <li>✓ Public schemas, examples, and badges in the repo</li>
             </ul>
           </article>
           <article class="surface min-w-0 p-6">
             <p class="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-300">Service reality</p>
             <ul class="mt-4 space-y-3 text-sm leading-7 text-slate-300">
-              <li>✓ FastAPI HTTP API</li>
               <li>✓ Public landing page</li>
+              <li>✓ Human / bot / org scoreboard filters</li>
+              <li>✓ Linked public-repo contract</li>
               <li>✓ Sybil-resistance account age gate</li>
               <li>✓ Sealed-claims support</li>
-              <li>✓ 264+ tests passing</li>
+              <li>✓ OpenTimestamps anchoring on ingest</li>
             </ul>
           </article>
         </div>
