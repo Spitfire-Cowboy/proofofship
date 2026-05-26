@@ -8,7 +8,7 @@ from typing import Any
 
 from tools.public_repo_checks import missing_required_paths, forbidden_private_strings, invalid_public_examples, forbidden_site_fallback_links
 
-from .scoring import ReceiptInput, decay_weight, reputation_score
+from .scoring import ReceiptInput, decay_weight, default_recent_activity_half_life_days, reputation_score
 from .urls import profile_url, receipts_url, score_url
 
 
@@ -50,8 +50,12 @@ def _load_receipts_file(path: str | Path) -> list[ReceiptInput]:
 def cmd_weight(args: argparse.Namespace) -> int:
     payload = {
         "age_days": args.age_days,
-        "half_life_days": args.half_life_days,
-        "time_weight": decay_weight(args.age_days, half_life_days=args.half_life_days),
+        "actor_kind": args.actor_kind,
+        "recent_activity_half_life_days": args.half_life_days if args.half_life_days is not None else default_recent_activity_half_life_days(args.actor_kind),
+        "time_weight": decay_weight(
+            args.age_days,
+            half_life_days=args.half_life_days if args.half_life_days is not None else default_recent_activity_half_life_days(args.actor_kind),
+        ),
     }
     print(json.dumps(payload, indent=2) if args.json else payload["time_weight"])
     return 0
@@ -59,7 +63,7 @@ def cmd_weight(args: argparse.Namespace) -> int:
 
 def cmd_score(args: argparse.Namespace) -> int:
     receipts = _load_receipts_file(args.receipts_file)
-    result = reputation_score(receipts, half_life_days=args.half_life_days)
+    result = reputation_score(receipts, recent_activity_half_life_days=args.half_life_days, actor_kind=args.actor_kind)
     if args.json:
         if args.handle:
             serializable = _public_score_payload(args.handle, result, base_url=args.base_url)
@@ -74,7 +78,9 @@ def cmd_score(args: argparse.Namespace) -> int:
     print(f"reputation_score={result['reputation_score']:.6f}")
     print(f"lifetime_score={result['lifetime_score']:.6f}")
     print(f"receipt_count={result['receipt_count']}")
-    print(f"half_life_days={result['half_life_days']}")
+    print(f"actor_kind={result['actor_kind']}")
+    print(f"recent_activity_half_life_days={result['recent_activity_half_life_days']}")
+    print(f"recent_activity_score={result['recent_activity_score']:.6f}")
     for index, item in enumerate(result["breakdown"], start=1):
         label = f" label={item.label}" if item.label else ""
         print(
@@ -90,8 +96,10 @@ def _public_score_payload(handle: str, result: dict, *, base_url: str) -> dict[s
         "handle": handle,
         "reputation_score": result["reputation_score"],
         "lifetime_score": result["lifetime_score"],
+        "recent_activity_score": result["recent_activity_score"],
         "receipt_count": result["receipt_count"],
-        "half_life_days": result["half_life_days"],
+        "recent_activity_half_life_days": result["recent_activity_half_life_days"],
+        "actor_kind": result["actor_kind"],
         "formula_version": "0.1",
         "profile_url": profile_url(handle, base_url=base_url),
         "score_url": score_url(handle, base_url=base_url),
@@ -191,13 +199,15 @@ def build_parser() -> argparse.ArgumentParser:
 
     weight = sub.add_parser("weight", help="Compute time decay weight for a receipt age")
     weight.add_argument("age_days", type=float)
-    weight.add_argument("--half-life-days", type=float, default=90.0)
+    weight.add_argument("--actor-kind", choices=["human", "agent", "bot", "org"], default="human")
+    weight.add_argument("--half-life-days", type=float, default=None)
     weight.add_argument("--json", action="store_true")
     weight.set_defaults(func=cmd_weight)
 
     score = sub.add_parser("score", help="Compute a reputation score from a JSON receipts file")
     score.add_argument("receipts_file")
-    score.add_argument("--half-life-days", type=float, default=90.0)
+    score.add_argument("--actor-kind", choices=["human", "agent", "bot", "org"], default="human")
+    score.add_argument("--half-life-days", type=float, default=None)
     score.add_argument("--handle", default=None, help="Optional handle for public score.json-style output")
     score.add_argument("--base-url", default="https://proofofship.com")
     score.add_argument("--json", action="store_true")

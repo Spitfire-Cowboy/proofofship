@@ -61,8 +61,8 @@ GitHub OAuth and repo linking are currently documented as a **public contract**.
 
 | Command | Status | Notes |
 |---|---|---|
-| `proofofship weight` | repo-shipped | Time-decay math |
-| `proofofship score` | repo-shipped | Score payload output |
+| `proofofship weight` | repo-shipped | Recent-activity recency math |
+| `proofofship score` | repo-shipped | Score payload output (lifetime reputation + recent activity) |
 | `proofofship receipts` | repo-shipped | Receipts payload output |
 | `proofofship badge` | repo-shipped | Badge markdown / URL helper |
 | `proofofship urls` | repo-shipped | Canonical route helper |

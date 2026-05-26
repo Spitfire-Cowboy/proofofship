@@ -5,17 +5,31 @@ import subprocess
 import sys
 from pathlib import Path
 
-from proofofship.scoring import ReceiptInput, decay_weight, lifetime_score, reputation_score
+from proofofship.scoring import (
+    HUMAN_RECENT_ACTIVITY_HALF_LIFE_DAYS,
+    NON_HUMAN_RECENT_ACTIVITY_HALF_LIFE_DAYS,
+    ReceiptInput,
+    decay_weight,
+    default_recent_activity_half_life_days,
+    lifetime_score,
+    reputation_score,
+)
 from proofofship.urls import profile_url, receipts_url, score_url
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_decay_weight_matches_docs_example_shape():
-    assert round(decay_weight(45), 3) == 0.707
+def test_decay_weight_matches_human_recent_activity_shape():
+    assert round(decay_weight(45, half_life_days=HUMAN_RECENT_ACTIVITY_HALF_LIFE_DAYS), 3) == 0.918
 
 
-def test_reputation_score_returns_breakdown_and_total():
+def test_default_half_life_days_differs_for_humans_and_agents():
+    assert default_recent_activity_half_life_days("human") == 365.0
+    assert default_recent_activity_half_life_days("agent") == 90.0
+    assert default_recent_activity_half_life_days("bot") == NON_HUMAN_RECENT_ACTIVITY_HALF_LIFE_DAYS
+
+
+def test_reputation_score_returns_non_decaying_human_reputation_and_recent_activity():
     result = reputation_score(
         [
             ReceiptInput(age_days=10, verification_depth=0.8),
@@ -24,9 +38,27 @@ def test_reputation_score_returns_breakdown_and_total():
         ]
     )
     assert result["receipt_count"] == 3
-    assert round(result["reputation_score"], 2) == 1.56
+    assert result["actor_kind"] == "human"
+    assert result["recent_activity_half_life_days"] == 365.0
+    assert round(result["reputation_score"], 2) == 2.4
+    assert round(result["lifetime_score"], 2) == 2.4
+    assert round(result["recent_activity_score"], 2) == 2.13
     assert len(result["breakdown"]) == 3
-    assert "lifetime_score" in result
+
+
+def test_agent_reputation_remains_recent_activity_sensitive():
+    result = reputation_score(
+        [
+            ReceiptInput(age_days=10, verification_depth=0.8),
+            ReceiptInput(age_days=45, verification_depth=0.6),
+            ReceiptInput(age_days=120, verification_depth=1.0),
+        ],
+        actor_kind="agent",
+    )
+    assert result["actor_kind"] == "agent"
+    assert result["recent_activity_half_life_days"] == 90.0
+    assert round(result["reputation_score"], 2) == 1.56
+    assert round(result["recent_activity_score"], 2) == 1.56
     assert round(result["lifetime_score"], 2) == 2.4
 
 
@@ -57,7 +89,9 @@ def test_cli_score_json_output():
     )
     payload = json.loads(proc.stdout)
     assert payload["receipt_count"] == 3
-    assert round(payload["reputation_score"], 2) == 1.56
+    assert payload["actor_kind"] == "human"
+    assert round(payload["reputation_score"], 2) == 2.4
+    assert round(payload["recent_activity_score"], 2) == 2.13
     assert round(payload["lifetime_score"], 2) == 2.4
 
 
@@ -93,8 +127,38 @@ def test_cli_public_score_payload_with_handle():
     )
     payload = json.loads(proc.stdout)
     assert payload["handle"] == "example-builder"
+    assert payload["actor_kind"] == "human"
     assert payload["score_url"].endswith("/u/example-builder/score.json")
     assert payload["formula_version"] == "0.1"
+
+
+def test_cli_score_json_output_for_agent_keeps_shorter_recent_activity_window():
+    receipts = REPO_ROOT / "examples/score.sample.json"
+    proc = subprocess.run(
+        [sys.executable, "-m", "proofofship.cli", "score", str(receipts), "--actor-kind", "agent", "--json"],
+        cwd=REPO_ROOT,
+        check=True,
+        text=True,
+        capture_output=True,
+    )
+    payload = json.loads(proc.stdout)
+    assert payload["actor_kind"] == "agent"
+    assert payload["recent_activity_half_life_days"] == 90.0
+    assert round(payload["reputation_score"], 2) == 1.56
+
+
+def test_cli_weight_defaults_by_actor_kind():
+    proc = subprocess.run(
+        [sys.executable, "-m", "proofofship.cli", "weight", "45", "--json"],
+        cwd=REPO_ROOT,
+        check=True,
+        text=True,
+        capture_output=True,
+    )
+    payload = json.loads(proc.stdout)
+    assert payload["actor_kind"] == "human"
+    assert payload["recent_activity_half_life_days"] == 365.0
+    assert round(payload["time_weight"], 3) == 0.918
 
 
 def test_cli_receipts_json_output():

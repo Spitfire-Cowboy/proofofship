@@ -1,15 +1,8 @@
-"""Public Proof of Ship CLI package."""
-
-from .scoring import decay_weight, lifetime_score, reputation_score
-from .urls import profile_url, receipts_url, score_url
+from .scoring import decay_weight, default_recent_activity_half_life_days, lifetime_score, reputation_score
 
 __all__ = [
     "decay_weight",
+    "default_recent_activity_half_life_days",
     "lifetime_score",
     "reputation_score",
-    "profile_url",
-    "score_url",
-    "receipts_url",
 ]
-
-__version__ = "0.1.0"

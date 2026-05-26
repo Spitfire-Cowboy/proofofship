@@ -12,7 +12,12 @@ pip install -e '.[dev]'
 
 ### `proofofship weight <age_days>`
 
-Compute the time-decay weight for a receipt age.
+Compute the recent-activity decay weight for a receipt age.
+
+Defaults:
+- `human` → 365-day recent-activity half-life
+- `agent`, `bot`, `org` → 90-day recent-activity half-life
+- `--half-life-days` overrides either default when you need an explicit value
 
 Example:
 
@@ -22,7 +27,12 @@ proofofship weight 45 --json
 
 ### `proofofship score <receipts_file>`
 
-Compute a reputation score from a JSON array of receipt-like inputs.
+Compute a public score payload from a JSON array of receipt-like inputs.
+
+Semantics:
+- `human` actors keep non-decaying earned reputation
+- `recent_activity_score` is tracked separately for humans
+- non-human actors can keep a stricter recency-sensitive `reputation_score`
 
 Example:
 
@@ -31,10 +41,13 @@ proofofship score examples/score.sample.json --handle example-builder --json
 ```
 
 Public-output fields:
+- `handle`
+- `actor_kind`
 - `reputation_score`
 - `lifetime_score`
+- `recent_activity_score`
 - `receipt_count`
-- `half_life_days`
+- `recent_activity_half_life_days`
 - `formula_version`
 - `profile_url`
 - `score_url`

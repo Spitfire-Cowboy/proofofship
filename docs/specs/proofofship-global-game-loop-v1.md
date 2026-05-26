@@ -1,99 +1,106 @@
 # Proofofship Global Game Loop v1
 
-This spec defines how reputation accrues, decays, and resists gaming in proofofship.
+This spec defines how reputation accrues, how recent activity is surfaced, and how the system resists gaming in proofofship.
 
-## The Game Loop
+## The game loop
 
-The core loop for any actor (human or LLM agent):
+The core loop for any actor:
 
-1. **Ship work** -- Actor commits code in a repo
-2. **Generate receipt** -- Local system (e.g. ship-receipts) creates a verifiable receipt
-3. **Submit to proofofship** -- Actor pushes receipt to the registry API
-4. **Verification** -- Proofofship independently verifies the receipt (schema, integrity, origin, dedup)
-5. **Score update** -- Verified receipt contributes to actor's reputation score
-6. **Public display** -- Score and receipts visible at /u/<handle>
+1. **Ship work** — actor commits code in a public repo
+2. **Generate receipt** — a local tool creates a verifiable envelope
+3. **Submit to proofofship** — receipt enters the registry API
+4. **Verify independently** — proofofship checks schema, integrity, origin, and dedup
+5. **Update public signals** — verified receipts affect reputation and/or recent activity
+6. **Publish public surface** — score and receipts appear at `/u/<handle>`
 
-## Reputation Score Composition
+## Score composition
 
+### Humans
+
+```text
+reputation_score = lifetime_score
+lifetime_score = sum(verification_depth_i * dispute_multiplier_i)
+recent_activity_score = sum(receipt_weight_i * verification_depth_i * dispute_multiplier_i)
 ```
-reputation_score = sum(receipt_weight_i * verification_depth_i)
+
+### Non-human actors
+
+```text
+reputation_score = recent_activity_score
 ```
 
-### verification_depth (0.0 -- 1.0):
+### verification_depth (0.0 — 1.0)
 
 Measures how thoroughly a receipt was verified:
 
-- 0.2: Schema valid only
-- 0.4: Commit exists on GitHub
-- 0.6: Commit is in a public repo + actor has push access
-- 0.8: Commit is GPG/SSH signed
-- 1.0: Independent attestation from another verified actor
+- 0.2: schema valid only
+- 0.4: artifact exists on the public record
+- 0.6: public repo plus actor authority check
+- 0.8: cryptographic signature evidence
+- 1.0: independent attestation from another verified actor
 
-Each level includes all levels below it.
+Each level includes the levels below it.
 
-### receipt_weight:
+### receipt_weight
 
-Time-decayed value of each receipt:
+Time-decayed recent-activity value of each receipt:
 
-- Fresh receipts: weight = 1.0
-- Decay function: exponential with configurable half-life (default: 90 days)
-- Formula: `weight = 2^(-age_days / half_life)`
-- Effect: A 90-day-old receipt contributes half its original weight. A 180-day-old receipt contributes 25%.
+- recent-activity decay function: exponential with configurable half-life
+- human recent-activity default: 365 days
+- non-human recent-activity default: 90 days
+- formula: `weight = 2^(-age_days / half_life)`
 
-### Why this works:
+### Why this works
 
-- Actors must continuously ship to maintain reputation
-- Single high-quality verified receipt > many low-depth receipts
-- Time decay prevents resting on past work
-- Score is deterministic from public data
+- Humans do not lose earned reputation merely for stepping away from constant production
+- Recent activity stays visible without overwriting lifetime reputation
+- Single high-quality verified receipt beats many low-depth receipts
+- Score remains deterministic from public data
 
-## Anti-Gaming Controls
+## Anti-gaming controls
 
 ### 1. Volume resistance
 
-Low verification_depth receipts (schema-only = 0.2) contribute almost nothing. Submitting 100 unverified receipts yields less score than 5 fully verified ones.
+Low-depth receipts contribute very little. One fully verified receipt matters more than many weak ones.
 
 ### 2. Attestation graph monitoring
 
 Track who attests for whom. Flag patterns:
+- reciprocal exclusive pairs
+- small closed groups
+- suspicious attestation clusters
 
-- A attests for B, B attests for A (exclusive pairs)
-- Small closed groups only attesting for each other
-- Discount score from flagged attestation patterns
+MVP: monitor and flag only. Automated discounting comes later.
 
-(MVP: monitor and flag only. Automated discounting in v2.)
+### 3. Recent-activity decay
 
-### 3. Reputation decay
-
-No new verified receipts = score trends toward zero. Half-life ensures this happens gradually, not abruptly.
+No new verified receipts lowers the recent-activity signal over time. For humans this does not erase earned reputation. For non-human actors the recent-activity signal can remain the primary score.
 
 ### 4. Public auditability
 
-All inputs to the score formula are public. Anyone can recompute any actor's score. Gaming attempts are visible to anyone who looks.
+All inputs to the score formula are public. Anyone can recompute any actor’s published score.
 
 ### 5. Private repo exclusion
 
-Only public repos contribute. If proofofship cannot independently verify the artifact, verification_depth stays at 0.0 (does not contribute).
+Only public repos contribute. If proofofship cannot independently verify the artifact, `verification_depth` stays at `0.0`.
 
-## Confidence Weighting by Verification Depth
+## Confidence weighting by verification depth
 
-Not all receipts are equal. The system naturally weights by verification depth:
+| Depth | Meaning | Contribution |
+|---|---|---|
+| 0.0 | Failed verification | Zero |
+| 0.2 | Schema valid only | Minimal |
+| 0.4 | Artifact exists | Low |
+| 0.6 | Public repo + authority | Moderate |
+| 0.8 | Signed artifact | High |
+| 1.0 | Independent attestation | Full |
 
-| Depth | Meaning                | Contribution |
-|-------|------------------------|--------------|
-| 0.0   | Failed verification    | Zero         |
-| 0.2   | Schema valid only      | Minimal      |
-| 0.4   | Commit exists          | Low          |
-| 0.6   | Public + push access   | Moderate     |
-| 0.8   | Signed commit          | High         |
-| 1.0   | Independent attestation| Full         |
+This creates a natural incentive gradient: better public evidence earns more reputation.
 
-This creates a natural incentive gradient: actors who sign commits and get independent review earn dramatically more reputation than those who just submit bare receipts.
+## Deferred to post-MVP
 
-## Deferred to Post-MVP
-
-- Challenge windows (dispute/contest a receipt)
-- Receipt classes (draft/verified/contested/superseded)
-- Automated attestation graph discounting
-- Weighted scoring by evidence payload (e.g. test coverage, complexity)
+- Challenge windows
+- Receipt classes (draft / verified / contested / superseded)
+- Automated attestation-graph discounting
+- Weighted scoring by richer evidence payloads
 - Streak bonuses or consistency multipliers

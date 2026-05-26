@@ -58,8 +58,8 @@
               <span class="bg-gradient-to-r from-cyan-300 via-sky-300 to-white bg-clip-text text-transparent">not claims.</span>
             </h1>
             <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
-              Proof of Ship turns public shipping evidence into a recomputable reputation score. It verifies commits, repos,
-              and signatures against the public record, rejects self-reported prestige, and publishes a trust surface anyone can inspect.
+              Proof of Ship turns public shipping evidence into a recomputable reputation and activity surface. It verifies commits, repos,
+              and signatures against the public record, rejects self-reported prestige, and publishes public outputs anyone can inspect.
             </p>
             <div class="mt-8 grid gap-3 text-sm text-slate-200 sm:grid-cols-3">
               <div class="surface min-w-0 p-4">
@@ -68,7 +68,7 @@
               </div>
               <div class="surface min-w-0 p-4">
                 <p class="font-semibold text-white">Deterministic scoring</p>
-                <p class="mt-2 text-slate-300">Time-decayed, depth-weighted, and recomputable from public inputs.</p>
+                <p class="mt-2 text-slate-300">Lifetime reputation for humans, recency-weighted activity for freshness, and recomputable public outputs.</p>
               </div>
               <div class="surface min-w-0 p-4">
                 <p class="font-semibold text-white">Strict trust boundary</p>
@@ -81,50 +81,36 @@
             </div>
             <div class="mt-10 flex flex-wrap gap-3 text-xs uppercase tracking-[0.22em] text-slate-400 sm:text-sm">
               <span class="rounded-full border border-white/10 px-3 py-2">Public ledger</span>
-              <span class="rounded-full border border-white/10 px-3 py-2">Public scoreboards</span>
+              <span class="rounded-full border border-white/10 px-3 py-2">Score surfaces</span>
               <span class="rounded-full border border-white/10 px-3 py-2">Repository badges</span>
             </div>
           </div>
 
           <div class="min-w-0">
-            <div class="surface relative overflow-hidden p-4 sm:p-6">
-              <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(34,211,238,0.15),_transparent_35%)]"></div>
-              <div class="relative">
-                <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
-                  <div>
-                    <p class="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200/80">Public score surface</p>
-                    <h2 class="mt-2 text-xl font-semibold text-white">score.json</h2>
-                  </div>
-                  <span class="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-emerald-300">recomputable</span>
+            <div class="surface relative overflow-hidden p-3 sm:p-4">
+              <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(34,211,238,0.12),_transparent_35%)]"></div>
+              <div class="relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-slate-950/80 shadow-2xl shadow-cyan-950/20">
+                <img
+                  src="./hero.jpg"
+                  alt="Archival documents linked by verification paths, representing public evidence and independently verified reputation."
+                  class="block w-full h-auto"
+                />
+              </div>
+              <div class="relative mt-4 grid gap-3 sm:grid-cols-3">
+                <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <p class="text-xs uppercase tracking-[0.22em] text-slate-400">Public evidence</p>
+                  <p class="mt-2 font-semibold text-white">Artifacts, not claims</p>
+                  <p class="mt-2 text-sm text-slate-300">Receipts start with real public repositories and verifiable artifacts.</p>
                 </div>
-                <div class="mt-4 overflow-x-auto rounded-2xl bg-slate-950/80 p-4 ring-1 ring-white/5">
-                  <pre class="min-w-0 text-xs leading-6 text-slate-300 sm:text-sm"><code>{
-  "handle": "example-builder",
-  "reputation_score": 1.5618,
-  "lifetime_score": 2.4,
-  "receipt_count": 3,
-  "formula_version": "0.1",
-  "profile_url": "https://proofofship.com/u/example-builder",
-  "score_url": "https://proofofship.com/u/example-builder/score.json",
-  "receipts_url": "https://proofofship.com/u/example-builder/receipts.json"
-}</code></pre>
+                <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <p class="text-xs uppercase tracking-[0.22em] text-slate-400">Independent verification</p>
+                  <p class="mt-2 font-semibold text-white">Checked from scratch</p>
+                  <p class="mt-2 text-sm text-slate-300">Proof of Ship re-verifies the public record instead of trusting self-description.</p>
                 </div>
-                <div class="mt-6 grid gap-3 sm:grid-cols-3">
-                  <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
-                    <p class="text-xs uppercase tracking-[0.22em] text-slate-400">Proof</p>
-                    <p class="mt-2 font-semibold text-white">Ship work</p>
-                    <p class="mt-2 text-sm text-slate-300">A builder ships to a public repository.</p>
-                  </div>
-                  <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
-                    <p class="text-xs uppercase tracking-[0.22em] text-slate-400">Verify</p>
-                    <p class="mt-2 font-semibold text-white">Check claims</p>
-                    <p class="mt-2 text-sm text-slate-300">Artifacts are re-verified from scratch against GitHub.</p>
-                  </div>
-                  <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
-                    <p class="text-xs uppercase tracking-[0.22em] text-slate-400">Publish</p>
-                    <p class="mt-2 font-semibold text-white">Earn reputation</p>
-                    <p class="mt-2 text-sm text-slate-300">Verified evidence contributes to a public score.</p>
-                  </div>
+                <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <p class="text-xs uppercase tracking-[0.22em] text-slate-400">Public trust surface</p>
+                  <p class="mt-2 font-semibold text-white">Scores, receipts, badges</p>
+                  <p class="mt-2 text-sm text-slate-300">The public site publishes machine-readable outputs anyone can inspect.</p>
                 </div>
               </div>
             </div>
@@ -168,12 +154,12 @@
           <article class="surface min-w-0 p-6">
             <p class="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-300">03</p>
             <h3 class="mt-4 text-xl font-semibold text-white">Verify independently</h3>
-            <p class="mt-3 text-slate-300">Proof of Ship checks commits, repo visibility, access level, and signature evidence against GitHub.</p>
+            <p class="mt-3 text-slate-300">Proof of Ship checks commits, repo visibility, access authority, and signature evidence against GitHub.</p>
           </article>
           <article class="surface min-w-0 p-6">
             <p class="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-300">04</p>
             <h3 class="mt-4 text-xl font-semibold text-white">Score and publish</h3>
-            <p class="mt-3 text-slate-300">Verified receipts contribute to a deterministic public score anyone can recompute.</p>
+            <p class="mt-3 text-slate-300">Verified receipts contribute to deterministic public score outputs anyone can recompute.</p>
           </article>
         </div>
       </section>
@@ -192,9 +178,9 @@
           <div class="surface min-w-0 p-6 sm:p-8">
             <div class="grid gap-6 sm:grid-cols-2">
               <div class="rounded-2xl border border-white/10 bg-slate-950/70 p-5">
-                <p class="text-sm font-semibold uppercase tracking-[0.24em] text-slate-400">Time decay</p>
-                <p class="mt-3 text-3xl font-black text-white">90 days</p>
-                <p class="mt-3 text-sm leading-7 text-slate-300">A 90-day-old receipt contributes half its original weight. A year-old receipt contributes roughly 6%.</p>
+                <p class="text-sm font-semibold uppercase tracking-[0.24em] text-slate-400">Recent activity</p>
+                <p class="mt-3 text-3xl font-black text-white">365 / 90</p>
+                <p class="mt-3 text-sm leading-7 text-slate-300">Human recent activity defaults to a 365-day half-life. Non-human actors keep the stricter 90-day default.</p>
               </div>
               <div class="rounded-2xl border border-white/10 bg-slate-950/70 p-5">
                 <p class="text-sm font-semibold uppercase tracking-[0.24em] text-slate-400">Hard rule</p>
@@ -221,7 +207,7 @@
           <a class="surface min-w-0 p-6 transition hover:border-cyan-300/40 hover:bg-white/[0.08]" href="/docs/schemas/">
             <p class="text-xs uppercase tracking-[0.22em] text-cyan-200/70">Payload</p>
             <h3 class="mt-3 text-xl font-semibold text-white">score.json</h3>
-            <p class="mt-3 text-sm leading-7 text-slate-300">Deterministic score output with breakdown, half-life, and canonical URLs.</p>
+            <p class="mt-3 text-sm leading-7 text-slate-300">Deterministic score output with lifetime reputation, recent activity, and canonical URLs.</p>
           </a>
           <a class="surface min-w-0 p-6 transition hover:border-cyan-300/40 hover:bg-white/[0.08]" href="/docs/examples/">
             <p class="text-xs uppercase tracking-[0.22em] text-cyan-200/70">Payload</p>
@@ -286,7 +272,8 @@
               <li>✓ Envelope validator</li>
               <li>✓ Append-only ledger</li>
               <li>✓ GitHub-backed artifact verification</li>
-              <li>✓ Time-decayed reputation score</li>
+              <li>✓ Lifetime reputation score</li>
+              <li>✓ Recent-activity score output</li>
               <li>✓ Lifetime score output</li>
             </ul>
           </article>
@@ -295,7 +282,7 @@
             <ul class="mt-4 space-y-3 text-sm leading-7 text-slate-300">
               <li>✓ Public profiles at <code class="break-all text-cyan-200">/u/&lt;handle&gt;</code></li>
               <li>✓ Public ledger at <code class="break-all text-cyan-200">/ledger</code></li>
-              <li>✓ Public scoreboards at <code class="break-all text-cyan-200">/scoreboard</code></li>
+              <li>✓ Actor-kind views at <code class="break-all text-cyan-200">/scoreboard</code></li>
               <li>✓ <code class="break-all text-cyan-200">score.json</code> payload surface</li>
               <li>✓ <code class="break-all text-cyan-200">receipts.json</code> payload surface</li>
               <li>✓ Public schemas, examples, and badges in the repo</li>

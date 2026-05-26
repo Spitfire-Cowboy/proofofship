@@ -138,13 +138,14 @@ def ingest_envelope(envelope: dict, db: Database) -> IngestResult:
 import math
 from datetime import datetime, timezone
 
-HALF_LIFE_DAYS = 90
+RECENT_ACTIVITY_HALF_LIFE_DAYS = 90
 
-def reputation_score(actor: str, ledger: list[LedgerEntry], as_of: datetime = None) -> float:
+def recent_activity_score(actor: str, ledger: list[LedgerEntry], as_of: datetime = None) -> float:
     """
-    reputation(actor) = Σ time_weight(r) × verification_depth(r) × dispute_multiplier(r)
+    recent_activity(actor) = Σ time_weight(r) × verification_depth(r) × dispute_multiplier(r)
 
     Over all ledger entries for actor where status = "verified".
+    Human reputation is exposed separately as a non-decaying lifetime score.
     """
     if as_of is None:
         as_of = datetime.now(timezone.utc)
@@ -164,7 +165,7 @@ def reputation_score(actor: str, ledger: list[LedgerEntry], as_of: datetime = No
             continue
 
         age_days = (as_of - datetime.fromisoformat(entry.ingested_at)).days
-        time_weight = math.pow(2, -age_days / HALF_LIFE_DAYS)
+        time_weight = math.pow(2, -age_days / RECENT_ACTIVITY_HALF_LIFE_DAYS)
         depth = entry.verification.verification_depth
 
         contribution = time_weight * depth * d_mult
@@ -185,7 +186,7 @@ def reputation_score(actor: str, ledger: list[LedgerEntry], as_of: datetime = No
 ### 3.2 Time Decay Function
 
 ```
-time_weight(age) = 2^(-age_days / 90)
+time_weight(age) = 2^(-age_days / half_life)
 ```
 
 | Age (days) | Weight |
@@ -197,6 +198,8 @@ time_weight(age) = 2^(-age_days / 90)
 | 90 | 0.500 |
 | 180 | 0.250 |
 | 365 | 0.063 |
+
+For humans this curve applies to `recent_activity_score`, not to earned lifetime reputation. A human profile can stay reputable while its recent-activity signal cools off. Non-human actors can keep a stricter recency-sensitive primary score. |
 
 **Properties:**
 - Half-life = 90 days (score halves every 90 days without new receipts)
@@ -230,7 +233,7 @@ From verifier-architecture-v1:
 ### 3.5 Score Properties
 
 - **Unbounded above:** More verified work = higher score. No ceiling.
-- **Naturally decaying:** Trends to 0 without fresh verified receipts.
+- **Recent-activity sensitive:** The freshness signal trends down without new verified receipts.
 - **Quality-weighted:** One high-depth receipt > many low-depth receipts.
 - **Deterministic:** Same inputs → same score. Publicly recomputable.
 - **Dispute-aware:** Flagged/upheld receipts contribute 0.
@@ -280,7 +283,7 @@ def actor_confidence(reputation: float, receipt_count: int) -> str:
 - **Source:** R5 (ARMS)
 
 ### 5.5 Stale Reputation Exploitation
-- **Mitigation:** Time decay with 90-day half-life. A builder who shipped heavily 1 year ago but nothing since has ~6% of peak reputation.
+- **Mitigation:** Human profiles separate lifetime reputation from recent activity. Long quiet periods cool the activity signal without erasing earned credibility. Non-human actors can remain more strictly recency-sensitive.
 - **Source:** R4 (trust in motion)
 
 ### 5.6 Replay Attack (duplicate envelopes)
@@ -300,13 +303,16 @@ def actor_confidence(reputation: float, receipt_count: int) -> str:
 ```json
 {
   "actor": "example-builder",
+  "actor_kind": "human",
   "reputation_score": 3.42,
+  "lifetime_score": 3.42,
+  "recent_activity_score": 1.91,
   "confidence": "established",
   "total_receipts": 8,
   "verified_receipts": 7,
   "disputed_receipts": 0,
   "computed_at": "2026-02-25T15:30:00Z",
-  "half_life_days": 90,
+  "recent_activity_half_life_days": 365,
   "formula_version": "1.0",
   "breakdown": [
     {

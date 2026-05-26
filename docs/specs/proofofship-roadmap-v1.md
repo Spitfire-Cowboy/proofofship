@@ -5,7 +5,7 @@ This roadmap defines the phased build plan for proofofship as a global verificat
 ## Relationship to ship-receipts
 
 - **ship-receipts** (~/Projects/ship-receipts): Local receipt generator. Creates verifiable records of shipped work per-repo. Does not compute reputation.
-- **proofofship** (~/Projects/proofofship): Global canonical scoreboard. Aggregates receipts from any conformant source, verifies independently, computes and publishes reputation scores.
+- **proofofship** (~/Projects/proofofship): Global verification and reputation registry. Aggregates receipts from any conformant source, verifies independently, and publishes public trust surfaces.
 
 Ship-receipts is the first integration. Not the only one.
 
@@ -34,7 +34,7 @@ Ship-receipts is the first integration. Not the only one.
 
 ## Phase 2: Reputation Engine
 - Implement reputation score computation
-- Implement time decay (configurable half-life)
+- Implement recent-activity decay (configurable half-life)
 - Implement score.json endpoint (/u/<handle>/score.json)
 - Implement receipts list endpoint (GET /api/v1/actors/:username/receipts)
 - Add GPG/SSH signature verification (stage 5)
