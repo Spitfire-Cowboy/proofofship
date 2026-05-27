@@ -29,7 +29,7 @@ def required_paths() -> list[Path]:
         REPO_ROOT / "docs/web/site/badges/verified.svg",
         REPO_ROOT / "docs/web/site/badges/receipts.svg",
         REPO_ROOT / "docs/web/site/favicon.svg",
-        REPO_ROOT / "docs/web/site/og-preview.svg",
+        REPO_ROOT / "docs/web/site/og-preview.png",
         REPO_ROOT / "docs/web/site/site.webmanifest",
         REPO_ROOT / "docs/web/site/robots.txt",
         REPO_ROOT / "docs/web/site/sitemap.xml",

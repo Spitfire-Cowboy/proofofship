@@ -2,6 +2,8 @@
 
 **Independent verification and reputation from public evidence.**
 
+![Proof of Ship hero artwork showing public evidence connected by verification paths](docs/web/site/og-preview.png)
+
 Proof of Ship is the public home for the product narrative, protocol surface, schemas, landing-page source for `proofofship.com`, and a small Python CLI for deterministic public score math.
 
 > *What has this person actually built, and how credible is that claim?*
