@@ -7,7 +7,7 @@ This roadmap defines the phased build plan for proofofship as a global verificat
 - **ship-receipts** (~/Projects/ship-receipts): Local receipt generator. Creates verifiable records of shipped work per-repo. Does not compute reputation.
 - **proofofship** (~/Projects/proofofship): Global verification and reputation registry. Aggregates receipts from any conformant source, verifies independently, and publishes public trust surfaces.
 
-Ship-receipts is the first integration. Not the only one.
+Ship-receipts is the first documented integration example. Not the only one.
 
 ## Phase 0: Spec + Foundation (Current)
 - Define architecture: registry-first model
@@ -30,7 +30,8 @@ Ship-receipts is the first integration. Not the only one.
 - Implement receipt query endpoint (GET /api/v1/receipts/:id)
 - Implement account endpoint and public-repo linking endpoints
 
-**Exit criteria:** Can submit a receipt from ship-receipts, verify it, and retrieve it via API.
+**Exit criteria:** Can submit a receipt from at least one conformant producer,
+verify it, and retrieve it via API.
 
 ## Phase 2: Reputation Engine
 - Implement reputation score computation
@@ -77,21 +78,34 @@ Ship-receipts is the first integration. Not the only one.
 - Pull/crawler-based ingestion
 - Federation with other verification systems
 
-## ship-receipts Integration Requirements
+## Example producer integration requirements
 
-For ship-receipts to integrate with proofofship:
+For any upstream producer to integrate with proofofship:
 
-1. **Schema conformance:** ship-receipts must emit receipts matching the proofofship ingestion schema (schema_version, source_type, actor, artifact, evidence, submitted_at)
-2. **Push mechanism:** ship-receipts adds a `proofofship push` command or post-commit hook that submits receipts to POST /api/v1/receipts
-3. **Authentication:** ship-receipts stores a GitHub OAuth token for the actor (or prompts for auth on first push)
-4. **No hard coupling:** ship-receipts continues to work standalone. Proofofship push is opt-in.
-5. **Evidence payload:** ship-receipts populates the evidence field with session-specific data (session_id, diminishing_returns_signal, files_changed, tests_passed, etc.). Proofofship treats this as opaque but stores it.
+1. **Schema conformance:** the producer must emit receipts matching the
+   proofofship ingestion schema (schema_version, source_type, actor, artifact,
+   evidence, submitted_at)
+2. **Push mechanism:** the producer may add a `proofofship push` command,
+   webhook, or other submission path to `POST /api/v1/receipts`
+3. **Authentication:** the producer must have a way to associate the submission
+   with the actor's authenticated session or equivalent identity proof
+4. **No hard coupling:** the producer continues to work standalone. Submission
+   to proofofship remains optional.
+5. **Evidence payload:** the producer may include session-specific evidence
+   fields. Proofofship treats this payload as opaque input for verification and
+   audit, not as self-authenticating truth.
+
+For the current `ship-receipts` integration specifically:
+
+- it is one producer that can satisfy the contract above
+- it remains a local evidence tool, not the global verifier
+- it is not a privileged upstream requirement for the Proof of Ship protocol
 
 ## Key Milestones
 
 | Milestone | Description | Phase |
 |-----------|-------------|-------|
-| First verified receipt | End-to-end: ship-receipts -> proofofship -> verified | Phase 1 |
+| First verified receipt | End-to-end: conformant producer -> proofofship -> verified | Phase 1 |
 | First reputation score | Score computed from verified receipts | Phase 2 |
 | First public profile | /u/<handle> live and readable | Phase 3 |
 | Semantic search live | "Find work like X" queries work | Phase 4 |

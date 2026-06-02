@@ -3,8 +3,12 @@
 ## Ship Receipts
 A **Ship Receipt** is a small, verifiable record of shipped work: artifact + verify hooks + provenance.
 
-Public integration today:
+Public integration example today:
 - https://github.com/Spitfire-Cowboy/ship-receipts
+
+Proof of Ship does not require `ship-receipts` specifically. Any upstream tool
+that emits the public proof-envelope contract can submit for independent
+verification.
 
 ## Diminishing Returns (DR)
 A lightweight “stop/ship” signal for multi-agent or long conversations.
