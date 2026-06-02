@@ -200,3 +200,7 @@ The scorer answers: “How much does that confidence contribute right now?”
 Proof of Ship always re-verifies from scratch against public evidence.
 
 That firewall is the core trust property of the system.
+
+More generally: the verifier depends on the public envelope and evidence
+contract, not on one privileged producer. `ship-receipts` is an example
+upstream source, not a mandatory one.
